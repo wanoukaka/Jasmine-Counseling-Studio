@@ -12,6 +12,7 @@
     { "src": "/intake-new", "dest": "/intake-new.html" },
     { "src": "/assessment", "dest": "/assessment.html" },
     { "src": "/assessment-new", "dest": "/assessment-new.html" },
+    { "src": "/ai-eval", "dest": "/ai-eval.html" },
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/articles", "dest": "/articles.html" },
     { "src": "/team", "dest": "/team.html" },

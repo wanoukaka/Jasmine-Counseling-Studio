@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI婚恋测评 - 茉莉心理咨询工作室</title>
+<style>
+:root{--primary:#059669;--primary-light:#10b981;--bg:#f0fdf4;--white:#fff;--text:#1a1a2e;--muted:#6b7280}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:15px;min-height:100vh}
+.header{background:var(--white);padding:14px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:10px}
+.header img{width:32px;height:32px;border-radius:8px}
+.header h1{font-size:15px;font-weight:700;color:var(--primary)}
+.container{padding:20px;max-width:600px;margin:0 auto}
+.hero{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#059669,#10b981);border-radius:20px;margin-bottom:24px;color:#fff}
+.hero-icon{font-size:48px;margin-bottom:12px}
+.hero h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.hero p{font-size:14px;opacity:0.9;line-height:1.7}
+.card{background:var(--white);border-radius:16px;padding:20px;margin-bottom:16px;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.card-title{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.input-group{margin-bottom:16px}
+.input-group label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:6px}
+.input-group textarea{width:100%;border:1.5px solid #d1d5db;border-radius:12px;padding:12px;font-size:14px;resize:none;min-height:100px;font-family:inherit}
+.input-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(5,150,105,0.1)}
+.tips{background:#f0fdf4;border-radius:12px;padding:14px;font-size:13px;color:#065f46;line-height:1.7}
+.tips strong{display:block;margin-bottom:4px}
+.btn-primary{background:var(--primary);color:#fff;border:none;border-radius:50px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 14px rgba(5,150,105,0.3);transition:all .2s}
+.btn-primary:hover{background:#047857;box-shadow:0 6px 20px rgba(5,150,105,0.4)}
+.btn-primary:active{transform:scale(.98)}
+.result{background:var(--white);border-radius:16px;padding:24px;border:2px solid var(--primary);display:none}
+.result-title{font-size:18px;font-weight:800;color:var(--primary);margin-bottom:12px;text-align:center}
+.result-content{font-size:14px;line-height:1.8;color:#374151;white-space:pre-wrap}
+.result-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e5e7eb}
+.result-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.result-tag{display:inline-block;background:#dcfce7;color:#166534;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:8px}
+.loading{text-align:center;padding:40px;display:none}
+.loading-spinner{width:40px;height:40px;border:3px solid #e5e7eb;border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}
+.loading p{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="header">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌸%3C/text%3E%3C/svg%3E" alt="logo">
+  <h1>茉莉心理 · AI婚恋测评</h1>
+</div>
+<div class="container">
+  <div class="hero">
+    <div class="hero-icon">🤖</div>
+    <h2>免费AI婚恋测评</h2>
+    <p>输入2-3个关键词，AI分析你的婚恋模式<br>3分钟获得专业建议</p>
+  </div>
+  <div class="card">
+    <div class="card-title">🔍 描述你的困惑</div>
+    <div class="input-group">
+      <label>简单描述你现在最困扰的婚恋问题（2-3句话）：</label>
+      <textarea id="inputText" placeholder="例如：\n• 每次吵架男友都冷战不理我\n• 我总是怀疑男朋友不爱我了\n• 结婚3年，感觉越来越疏远"></textarea>
+    </div>
+    <div class="tips">
+      <strong>💡 测评小贴士</strong>
+      描述越具体，分析越准确。可以包括：你们的关系状态、最近发生的具体事件、你的感受、你已经尝试过的方式。
+    </div>
+  </div>
+  <button class="btn-primary" onclick="runEval()">🤖 开始AI分析</button>
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+    <p>AI正在分析中，请稍候...</p>
+  </div>
+  <div class="result" id="result">
+    <div class="result-title">📊 AI分析报告</div>
+    <div class="result-content" id="resultContent"></div>
+    <div style="margin-top:20px;text-align:center">
+      <button class="btn-primary" onclick="location.href='intake.html'" style="background:#7c6af7;box-shadow:0 4px 14px rgba(124,106,247,0.3)">📞 预约专业咨询</button>
+    </div>
+  </div>
+</div>
+<script>
+// 模拟AI分析结果（实际需对接后端AI接口）
+function runEval() {
+  var input = document.getElementById('inputText').value.trim();
+  if (!input) { alert('请输入您的困惑'); return; }
+  document.getElementById('loading').style.display = 'block';
+  document.querySelector('.btn-primary').style.display = 'none';
+  setTimeout(function() {
+    document.getElementById('loading').style.display = 'none';
+    var resultEl = document.getElementById('result');
+    var contentEl = document.getElementById('resultContent');
+    resultEl.style.display = 'block';
+    // 生成模拟报告
+    contentEl.innerHTML = '<div class="result-section"><span class="result-tag">依恋风格分析</span><p>根据您的描述，您的依恋模式可能偏向【焦虑型依恋】。在亲密关系中，您对他人的情感需求较高，容易因为对方的一些细微变化而产生不安和怀疑。</p></div><div class="result-section"><span class="result-tag">关系模式识别</span><p>您描述的互动模式显示出一个典型的"追逐-逃避"循环：当您需要更多情感连接时，对方可能会感到压力而后退，而您会因此更加焦虑，形成恶性循环。</p></div><div class="result-section"><span class="result-tag">核心议题</span><p>您提到的怀疑/不安全感，可能源于早期依恋经验中形成的核心信念："我不够好，不值得被持续爱"。这个信念会在当前关系中被触发。</p></div><div class="result-section"><span class="result-tag">建议方向</span><p>1. 建议尝试「成人依恋风格量表」(ECR) 进一步确认您的依恋类型\n2. 通过专业咨询，识别和修复早期经历带来的内在工作模型\n3. 学习情绪调节技巧，减少在关系中的焦虑触发</p></div>';
+  }, 2000);
+}
+</script>
+</body>
+</html>

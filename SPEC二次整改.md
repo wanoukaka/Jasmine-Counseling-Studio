@@ -98,3 +98,18 @@
 
 仓库：github.com/wanoukaka/Jasmine-Counseling-Studio
 分支：feature/v2-redesign
+
+---
+
+## Phase 2 完成项（2026-04-09）
+
+- [x] 服务卡片新增AI测评入口（免费·3分钟）
+- [x] 定价页三层结构展示
+- [x] 测评页Banner改为AI测评主题（绿色渐变）
+- [x] 测评页推荐区首位AI测评入口
+
+## 待做
+
+- [ ] AI测评功能开发（前端交互+后端AI接口）
+- [ ] 飞书效度联调
+- [ ] Vercel部署上线

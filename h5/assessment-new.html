@@ -196,17 +196,26 @@ body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Helvetica
 ══════════════════════════════════════════ -->
 <div id="page-scale" class="page-section">
   <!-- Banner -->
-  <div class="banner">
-    <span class="banner-icon">🧠</span>
-    <div class="badge">专业 · 科学 · 保密</div>
-    <h2>了解自己，是成长的第一步</h2>
-    <p>10+专业量表，涵盖心理健康、人格性格、亲密关系三大维度<br>完成测评，获取个性化报告 &amp; 咨询建议</p>
+  <div class="banner" style="background:linear-gradient(135deg,#059669 0%,#10b981 50%,#6ee7b7 100%)">
+    <span class="banner-icon">🤖</span>
+    <div class="badge" style="background:rgba(255,255,255,0.3)">AI驱动 · 免费 · 3分钟出结果</div>
+    <h2>AI婚恋测评</h2>
+    <p>输入2-3个关键词，AI立即分析你的婚恋模式<br>免费获取个性化建议，咨询前先了解自己</p>
+    <button onclick="alert('AI测评开发中，敬请期待！')" style="margin-top:10px;background:#fff;color:#059669;border:none;border-radius:50px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer">🤖 立即体验AI测评</button>
   </div>
 
   <!-- 为你推荐 -->
   <div class="rec-section">
     <div class="rec-title">✨ 为你精选</div>
     <div class="rec-cards">
+      <div class="rec-card" onclick="alert('AI测评开发中，敬请期待！')" style="border-color:#10b981;background:linear-gradient(135deg,#f0fdf4,#ecfdf5)">
+        <div class="rec-emoji">🤖</div>
+        <div class="rec-info">
+          <div class="rec-name" style="color:#059669">AI婚恋测评（免费）</div>
+          <div class="rec-desc">输入关键词，3分钟获得AI分析报告</div>
+        </div>
+        <div class="rec-arrow" style="color:#059669">›</div>
+      </div>
       <div class="rec-card" onclick="gateAndStart('ecr')">
         <div class="rec-emoji">🔗</div>
         <div class="rec-info">

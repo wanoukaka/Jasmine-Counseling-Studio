@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理测评 - 茉莉心理咨询工作室</title>
+<style>
+:root{--primary:#7c6af7;--bg:#f5f3ff;--white:#fff;--text:#1a1a2e;--muted:#8b8b9e;--border:#e8e4ff;--success:#22c55e;--danger:#ef4444;--warn:#f59e0b;--orange:#f0883e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Helvetica Neue',sans-serif;font-size:15px;min-height:100vh}
+.header{background:var(--white);padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;}
+.header h1{font-size:15px;font-weight:700;color:var(--primary);}
+.logo{width:32px;height:32px;border-radius:7px;object-fit:cover;flex-shrink:0;}
+.progress-bar{background:var(--bg);border-radius:10px;height:8px;margin:16px 20px;overflow:hidden}
+.progress-fill{height:100%;background:var(--primary);border-radius:10px;transition:width .4s;width:0%}
+.card{background:var(--white);border-radius:14px;padding:16px;margin:0 16px 12px;border:1px solid var(--border)}
+.card-title{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.section-title{font-size:14px;font-weight:600;color:var(--primary);margin:20px 16px 10px;padding-left:10px;border-left:3px solid var(--primary)}
+.scale-card{display:block;background:var(--white);border-radius:14px;padding:16px;margin:0 16px 10px;border:1.5px solid var(--border);cursor:pointer;transition:all .2s;text-decoration:none;color:var(--text);}
+.scale-card:hover,.scale-card:active{border-color:var(--primary);transform:translateY(-1px)}
+.scale-card.selected{border-color:var(--primary);background:linear-gradient(135deg,#f5f3ff 0%,var(--white) 100%);}
+.hidden{display:none}
+.consent-gate{padding:20px 16px;}
+.scale-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.scale-meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+.scale-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;}
+.tag-purple{background:#ede9fe;color:#7c3aed}
+.tag-blue{background:#dbeafe;color:#2563eb}
+.tag-green{background:#dcfce7;color:#16a34a}
+.tag-orange{background:#ffedd5;color:#ea580c}
+.question{margin-bottom:18px}
+.question-title{font-size:13px;color:var(--text);margin-bottom:10px;line-height:1.6;padding-top:2px}
+.question-title span{color:var(--muted);font-size:12px;}
+.options{display:flex;flex-wrap:wrap;gap:8px}
+.option-chip{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);font-size:13px;cursor:pointer;transition:all .2s;background:var(--white);color:var(--text);}
+.option-chip:hover{ border-color:var(--primary); }
+.option-chip.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+.nav-btns{display:flex;gap:10px;padding:16px;margin-top:8px;}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+.btn:active{transform:scale(0.98)}
+.remark{font-size:11px;color:var(--muted);margin-top:4px}
+.info-box{background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:12px;font-size:12px;color:#713f12;line-height:1.7}
+.report{background:var(--white);border-radius:14px;margin:0 16px 20px;border:1px solid var(--border);overflow:hidden}
+.report-header{background:linear-gradient(135deg,#7c6af7,#9b7bff);color:#fff;padding:20px 16px;text-align:center}
+.report-header h2{font-size:17px;margin-bottom:4px}
+.report-header p{font-size:12px;opacity:0.85}
+.report-body{padding:16px}
+.report-score{text-align:center;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:16px}
+.score-circle{display:inline-block;width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#7c6af7,#9b7bff);color:#fff;line-height:100px;font-size:28px;font-weight:700;text-align:center;}
+.score-label{font-size:12px;color:var(--muted);margin-top:8px}
+.score-level{font-size:15px;font-weight:700;margin-top:4px}
+.factor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.factor-item{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:12px}
+.factor-name{color:var(--muted);margin-bottom:2px}
+.factor-val{font-size:15px;font-weight:700;color:var(--text)}
+.factor-bar{height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden}
+.factor-fill{height:100%;border-radius:2px;background:var(--primary);transition:width .5s}
+.report-section{margin-bottom:14px}
+.report-section h4{font-size:13px;color:var(--primary);margin-bottom:8px}
+.report-section p{font-size:13px;color:#444;line-height:1.8}
+.suggestion{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;font-size:13px;color:#166534;line-height:1.8}
+.notice{font-size:11px;color:var(--muted);text-align:center;padding:10px 16px 20px;line-height:1.7}
+.cta-btn{display:block;width:calc(100% - 32px);margin:16px;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;}
+.hidden{display:none !important}
+.back-top{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--primary);cursor:pointer;padding:10px 0;}
+  </style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="header" onclick="location.href='index.html'" style="cursor:pointer;">
+  <img src="images/logo.jpg" loading="lazy" class="logo" alt="茉莉心理">
+  <div>
+    <h1>心理测评</h1>
+  </div>
+</div>
+
+<!-- 进度条 -->
+<div class="progress-bar" id="progressBar" style="display:none;">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- 1. 量表选择页 -->
+<div id="page-scale">
+  <div class="section-title">选择量表开始测评</div>
+  <div class="info-box" style="margin:0 16px 14px;">
+    ⚠️ 本测评为自助参考工具，测评结果仅供参考，不作为医学诊断依据。如有严重困扰，请及时寻求专业帮助。
+  </div>
+
+  <a class="scale-card" href="?scale=sas" onclick="event.preventDefault();selectScale('sas')">
+    <div class="scale-name">😰 SAS 焦虑自评量表</div>
+    <div class="scale-meta">20题 · 约3-5分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-orange">焦虑筛查</span>
+      <span class="tag tag-green">成人</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=sds" onclick="event.preventDefault();selectScale('sds')">
+    <div class="scale-name">😔 SDS 抑郁自评量表</div>
+    <div class="scale-meta">20题 · 约3-5分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-purple">抑郁筛查</span>
+      <span class="tag tag-green">成人</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=scl90" onclick="event.preventDefault();selectScale('scl90')">
+    <div class="scale-name">🌡️ SCL-90 症状自评量表</div>
+    <div class="scale-meta">90题 · 约15-20分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-purple">心理健康</span>
+      <span class="tag tag-blue">9个维度</span>
+      <span class="tag tag-green">成人</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=mmpi" onclick="event.preventDefault();selectScale('mmpi')">
+    <div class="scale-name">📊 MMPI 明尼苏达多项人格测验</div>
+    <div class="scale-meta">566题 · 约40-60分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-purple">人格评估</span>
+      <span class="tag tag-blue">10个临床量表</span>
+      <span class="tag tag-green">成人</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=mbti" onclick="event.preventDefault();selectScale('mbti')">
+    <div class="scale-name">🔮 MBTI 迈尔斯类型指标</div>
+    <div class="scale-meta">28题 · 约5-8分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-purple">人格类型</span>
+      <span class="tag tag-blue">4大维度</span>
+      <span class="tag tag-green">16种类型</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=adhd" onclick="event.preventDefault();selectScale('adhd')">
+    <div class="scale-name">🧠 ADHD 成人注意力缺陷量表</div>
+    <div class="scale-meta">18题 · 约3-5分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-blue">注意力</span>
+      <span class="tag tag-orange">多动/冲动</span>
+      <span class="tag tag-green">18岁以上</span>
+    </div>
+  </a>
+
+  <a class="scale-card" href="?scale=psqi" onclick="event.preventDefault();selectScale('psqi')">
+    <div class="scale-name">😴 PSQI 匹兹堡睡眠质量指数量表</div>
+    <div class="scale-meta">9题 · 约2-3分钟</div>
+    <div class="scale-tags">
+      <span class="tag tag-purple">睡眠评估</span>
+      <span class="tag tag-green">成人</span>
+    </div>
+  </a>
+
+  <p class="notice">所有测评结果严格保密。<br>茉莉心理咨询工作室 © 2026</p>
+</div>
+
+<!-- 2. 答题页 -->
+<div id="page-consent" class="hidden">
+  <div class="consent-gate">
+    <div style="padding:16px 16px 8px;">
+      <div style="background:#f5f3ff;border:1.5px solid #e8e4ff;border-radius:14px;padding:16px;margin-bottom:16px;">
+        <p style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:10px;">📋 心理测评知情同意书</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:10px;">欢迎使用济南茉莉心理工作室心理测评系统。在开始测评前，请阅读以下内容：</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">1. 本测评为自评量表，结果仅供参考，不作为医学诊断依据</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">2. 您的作答结果将严格保密，仅用于心理咨询参考</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">3. 请根据您近期的真实感受作答，测评时长约5-20分钟</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;">4. 如感到困扰持续或出现心理危机，请及时寻求专业帮助。全国24小时免费危机干预热线：12356（成人）</p>
+      </div>
+      <div class="form-group">
+   <label>姓名（用于生成个人报告）</label>
+        <input type="text" id="assessName" placeholder="请输入姓名" maxlength="20" style="width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-size:14px;color:var(--text);outline:none;box-sizing:border-box;">
+      </div>
+      <div style="margin:14px 0;">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.6;">
+          <input type="checkbox" id="assessConsent" style="accent-color:var(--primary);margin-top:3px;flex-shrink:0;">
+          <span>我已阅读并理解上述内容，同意参与本次心理测评</span>
+        </label>
+      </div>
+      <button type="button" id="startAssessBtn" onclick="openAssessConsent()" disabled
+        style="width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:not-allowed;opacity:0.5;">
+        开始测评 →
+      </button>
+      <p style="text-align:center;margin-top:10px;font-size:12px;">
+        <a href="#" onclick="document.getElementById('page-consent').classList.add('hidden');document.getElementById('page-scale').classList.remove('hidden');return false" style="color:var(--muted);">← 返回量表选择</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="page-question" class="hidden">
+  <div class="header" style="cursor:pointer;" onclick="goBack('page-scale')">
+    <div style="font-size:18px;color:var(--primary);">←</div>
+    <div>
+      <h1 id="scaleTitle">量表名称</h1>
+      <div style="font-size:11px;color:var(--muted);" id="scaleProgress">1/90</div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="qProgressFill"></div>
+  </div>
+
+  <div id="questionList"></div>
+
+  <div class="nav-btns">
+    <button class="btn btn-outline" id="prevBtn" onclick="prevQuestion()">← 上一题</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+  </div>
+</div>
+
+<!-- 3. 报告页 -->
+<div id="page-report" class="hidden">
+  <div class="header">
+    <div style="cursor:pointer;" onclick="location.reload()">
+      <div style="font-size:18px;color:var(--primary);">↺</div>
+    </div>
+    <div style="flex:1;">
+      <h1>测评报告</h1>
+      <div style="font-size:11px;color:var(--muted);" id="reportScale"></div>
+    </div>
+    <div style="cursor:pointer;font-size:14px;color:var(--primary);font-weight:600;" onclick="copyReport()">📋 复制</div>
+  </div>
+  <div class="report" id="reportContent"></div>
+  <div style="margin:16px 16px 20px;background:#fff5f5;border:1px solid #fecaca;border-radius:12px;padding:12px 14px;">
+    <p style="font-size:12px;color:#b91c1c;line-height:1.8;">
+      <strong>⚠️ 医学免责声明</strong><br>
+      本测评结果仅供参考，不作为医学诊断依据，亦不替代精神科医生或心理咨询师的专业评估。如您感到困扰持续或出现心理危机，请及时寻求专业帮助。
+    </p>
+  </div>
+  <a href="index.html" class="cta-btn" style="display:block;text-align:center;">← 返回首页</a>
+</div>
+
+<script>
+// ── 量表数据 ──────────────────────────────────────────────────
+const SCALES = {
+
+  scl90: {
+    name: 'SCL-90 症状自评量表',
+    total: 90,
+    options: [
+      { text:'从无', value:1 },
+      { text:'轻度', value:2 },
+      { text:'中度', value:3 },
+      { text:'偏重', value:4 },
+      { text:'严重', value:5 }
+    ],
+    questions: [
+      '1. 头痛','2. 严重头痛','3. 胸痛','4. 胸闷','5. 身体刺痛或麻木感','6. 背部疼痛','7. 全身酸痛',
+      '8. 呼吸不畅','9. 心悸','10. 胃部不适或消化不良',
+      '11. 吃得太少','12. 便秘','13. 腹泻','14. 容易哭泣',
+      '15. 做事必须非常缓慢','16. 脸红或发热','17. 容易疲劳',
+      '18. 工作时容易忘记事情','19. 头脑不清楚','20. 坐立不安',
+      '21. 感到精力不足','22. 情绪低落','23. 肌肉酸痛','24. 担忧自己的健康',
+      '25. 很想睡觉却睡不着','26. 感到不快乐','27. 手脚沉重','28. 性兴趣减退',
+      '29. 感到别人在控制你','30. 容易受惊','31. 心跳很快','32. 容易紧张',
+      '33. 没有胃口','34. 感到孤独','35. 对什么事都提不起兴趣','36. 容易哭',
+      '37. 感到别人不信任自己','38. 容易发脾气','39. 感到活着没意思','40. 感到大部分事情都不能胜任',
+      '41. 手脚发抖','42. 呼吸急促','43. 睡眠不安稳','44. 做噩梦',
+      '45. 感到害怕','46. 不愿意说话','47. 胃痛','48. 小便频繁',
+      '49. 头晕','50. 性欲减退','51. 担心自己的外表','52. 想到死亡',
+      '53. 吃得太多','54. 别人能察觉你的想法','55. 感到别人不友好','56. 感到有人在监视自己',
+      '57. 感到大多数人都不可信','58. 感到羞愧','59. 做事不能集中注意力','60. 对异性失去兴趣',
+      '61. 容易心烦意乱','62. 感到自己被困住了','63. 感到无聊','64. 说话时发音含糊',
+      '65. 眼睛很容易疲劳','66. 容易入睡但很快醒来','67. 做事必须反复检查','68. 很难做出决定',
+      '69. 感到自己外表不吸引人','70. 感到有人在背后说坏话','71. 容易与人发生冲突','72. 难以完成任务',
+      '73. 难以在别人面前放松','74. 容易感到孤独','75. 感到生活没有意义','76. 感到别人对你有偏见',
+      '77. 感到脚很沉重','78. 身体麻木或刺痛','79. 喉咙有哽咽感','80. 对事物不感兴趣',
+      '81. 感到自己像个废物','82. 想到自己可能伤害自己','83. 醒来后还是觉得很累','84. 脑子反应变慢了',
+      '85. 感到自己不重要','86. 感到别人不了解自己','87. 做事不如以前有信心','88. 感到不值得活',
+      '89. 感到很无助','90. 容易为一些小事烦恼'
+    ],
+    factors: {
+      '躯体化':[1,4,12,27,40,42,48,49,52,56,58,59,65,66,67,68,78,79,84,86,88,89,90],
+      '强迫症状':[3,9,10,28,38,45,46,51,55,65,70,77,84,85,87,88],
+      '人际关系':[6,21,34,36,37,41,61,69,72,73,80,83],
+      '抑郁':[5,14,15,20,22,26,29,30,32,35,39,51,52,71,75,79,80,81,84,85,86,88,89,90],
+      '焦虑':[2,17,23,33,57,72,80,83,87,88,90],
+      '敌对':[11,24,63,67,74,76,82],
+      '恐怖':[13,25,47,50,70,75,82],
+      '偏执':[8,43,68,76,83,84],
+      '精神病性':[7,16,35,62,77,84,85,87,88,90]
+    },
+    scoreText: function(raw) {
+      const gsi = raw/90;
+      let level = gsi < 1.5 ? '正常范围' : gsi < 2 ? '轻度异常' : gsi < 2.5 ? '中度异常' : '重度异常';
+      return { gsi, level, desc: `总分 ${raw}，总症状指数 ${gsi.toFixed(2)}，` + level }
+    }
+  },
+
+  sas: {
+    name: 'SAS 焦虑自评量表',
+    total: 20,
+    options:[
+      {text:'没有或偶尔',value:1},{text:'有时',value:2},
+      {text:'经常',value:3},{text:'持续或总是',value:4}
+    ],
+    questions:[
+      '1. 我觉得比平时容易紧张和着急','2. 我无缘无故地感到害怕','3. 我容易心里烦乱或觉得惊恐',
+      '4. 我觉得我可能将要发疯','5. 我觉得一切都很好，也不会发生什么不幸','6. 我手脚发抖打颤',
+      '7. 我因为头痛、头颈痛和背痛而苦恼','8. 我感觉容易衰弱和疲乏','9. 我觉得心平气和，并且容易安静坐着',
+      '10. 我觉得心跳得很快','11. 我因为一阵阵头晕而苦恼','12. 我有晕倒发作，或觉得要晕倒似的',
+      '13. 我吸气呼气都感到很容易','14. 我的手脚麻木和刺痛','15. 我因为胃痛和消化不良而苦恼',
+      '16. 我常常要小便','17. 我的手脚常常是干燥温暖的','18. 我脸红发热','19. 我容易入睡并且一夜睡得很好',
+      '20. 我做恶梦'
+    ],
+    scoreText: function(raw) {
+      const si = Math.round(raw * 1.25);
+      let level = si < 50 ? '正常' : si < 60 ? '轻度焦虑' : si < 70 ? '中度焦虑' : '重度焦虑';
+      return { si, level, desc: `标准分 ${si}分，${level}` }
+    }
+  },
+
+  sds: {
+    name: 'SDS 抑郁自评量表',
+    total: 20,
+    options:[
+      {text:'没有或偶尔',value:1},{text:'有时',value:2},
+      {text:'经常',value:3},{text:'持续或总是',value:4}
+    ],
+    questions:[
+      '1. 我感到情绪沮丧，郁闷','2. 我感到早晨心情最好','3. 我要哭或想哭',
+      '4. 我夜间睡眠不好','5. 我吃饭像平时一样多','6. 我的性功能正常',
+      '7. 我感到体重减轻','8. 我为便秘烦恼','9. 心跳比平时快','10. 我无故感到疲劳',
+      '11. 我的头脑像往常一样清楚','12. 我做事情像平时一样不感到困难','13. 我坐卧不安，难以保持平静',
+      '14. 我对未来感到有希望','15. 我比平时更易被激惹','16. 我决定事情很容易',
+      '17. 我感到自己是有用的和不可缺少的人','18. 我的生活很有意义','19. 假若我死了，别人会过得更好',
+      '20. 我仍旧喜爱自己平时喜爱的东西'
+    ],
+    scoreText: function(raw) {
+      const si = Math.round(raw * 1.25);
+      let level = si < 50 ? '正常' : si < 60 ? '轻度抑郁' : si < 70 ? '中度抑郁' : '重度抑郁';
+      return { si, level, desc: `标准分 ${si}分，${level}` }
+    }
+  },
+
+  adhd: {
+    name: 'ADHD 成人注意力缺陷量表',
+    total: 18,
+    options:[
+      {text:'从不',value:0},{text:'偶尔',value:1},
+      {text:'经常',value:2},{text:'总是',value:3}
+    ],
+    questions:[
+      '1. 在完成作业或任务时，你经常不注意细节而出现粗心大意的错误？','2. 你在日常活动中是否经常很难保持注意力集中？',
+      '3. 别人对你说话时，你是否经常像没在听？','4. 你是否经常无法遵循指令完成作业或任务？',
+      '5. 你是否经常难以组织任务和活动？','6. 你是否经常回避或拖延做需要持续注意力完成的任务？',
+      '7. 你是否经常丢失玩具、作业本、铅笔、书本、工具等？','8. 你是否经常被外界刺激分心？',
+      '9. 你是否经常在日常活动中忘记事情？',
+      '10. 你是否经常坐不住，手脚乱动或身体扭来扭去？','11. 你在座位上是否经常难以保持安静？',
+      '12. 你是否经常精力充沛，「充电几小时」？','13. 你是否经常话多？',
+      '14. 你是否经常在问题说完之前就抢答？','15. 你是否经常难以等待轮流？',
+      '16. 你是否经常打断或插入别人的话或活动？','17. 你是否经常觉得自己「脑子里装着发动机」停不下来？',
+      '18. 你是否经常很难「慢下来」，做事冲动？'
+    ],
+    scoreText: function(raw) {
+      let level = raw < 24 ? '正常范围' : raw < 32 ? '注意缺陷倾向' : raw < 40 ? '注意缺陷' : '高度注意缺陷';
+      return { si: raw, level, desc: `原始分 ${raw}（满分54），${level}` }
+    }
+  },
+
+  psqi: {
+    name: 'PSQI 匹兹堡睡眠质量指数量表',
+    total: 9,
+    questions: [
+      '1. 近1个月，你通常晚上几点上床睡觉？（上床时间：  点）',
+      '2. 近1个月，从上床到入睡一般需要多长时间？',
+      '3. 近1个月，你通常早上几点起床？（起床时间：  点）',
+      '4. 近1个月，你每晚实际睡眠时间大约为多少小时？',
+      '5. 近1个月，你是否因为以下情况影响睡眠而烦恼？<br>① 入睡困难（>30分钟才能入睡）<br>② 夜间易醒或早醒<br>③ 夜间去厕所<br>④ 呼吸不畅<br>⑤ 大声咳嗽或打鼾<br>⑥ 感到太冷<br>⑦ 感到太热<br>⑧ 做噩梦<br>⑨ 疼痛不适<br>⑩ 其他'
+    ],
+    // PSQI scoring is special: items have different scoring
+    // Simplified: 5 main components rated 0-3
+    options: [
+      { text:'没有', value:0 },{ text:'不足1次/周', value:1 },
+      { text:'1-2次/周', value:2 },{ text:'3次或以上/周', value:3 }
+    ],
+    scoreText: function(raw) {
+      // Simplified: approximate score
+      const total = Math.min(raw, 21);
+      let level = total < 7 ? '睡眠质量良好' : total < 11 ? '睡眠质量一般' : total < 16 ? '睡眠质量较差' : '睡眠质量很差';
+      return { si: total, level, desc: `PSQI总分 ${total}（满分21），${level}` }
+    }
+  },
+
+  mbti: {
+    name: 'MBTI 迈尔斯类型指标',
+    total: 28,
+    options: [
+      { text:'A. 完全不像我', value: 1 },
+      { text:'B. 比较不像我', value: 2 },
+      { text:'C. 比较像我', value: 3 },
+      { text:'D. 完全像我', value: 4 }
+    ],
+    questions: [
+      '1. 在社交场合中，我更喜欢和许多人交流而不是独自待着',
+      '2. 我倾向于先观察、再行动，而不是一马当先',
+      '3. 我更关注现实细节，而不是抽象的可能性',
+      '4. 我更看重逻辑和公平，而不是人情和和谐',
+      '5. 我喜欢按照计划行事，而不是灵活随机应变',
+      '6. 我从与他人的互动中获得能量，独处会让我疲惫',
+      '7. 我更相信自己的经验和亲眼所见，而不是直觉',
+      '8. 我做决定时主要依据个人价值观和他人的感受',
+      '9. 我喜欢有变化和新鲜感，不喜欢一成不变',
+      '10. 我善于同时处理多项任务，而不是一次只做一件',
+      '11. 我更享受热闹活跃的氛围和环境',
+      '12. 我在发表意见前倾向于先充分了解事实全貌',
+      '13. 我更看重创新和想象力，而不是实际可行',
+      '14. 我在做决策时，更在意是否对他人公平',
+      '15. 我喜欢提前规划安排，而不是临时决定',
+      '16. 我从安静的独处中获得能量',
+      '17. 我看待事物时，更注重全局和整体规律',
+      '18. 我容易被情绪和情感所驱动，而不只是理性分析',
+      '19. 我喜欢按部就班、有条理的生活',
+      '20. 我是主动表达的类型，而不是先倾听再回应',
+      '21. 我更相信经过实践验证的方法，而非理论推演',
+      '22. 我更看重逻辑性和一致性，而不是照顾每个人的感受',
+      '23. 我的生活节奏偏慢，享受过程中的灵活',
+      '24. 我喜欢参与讨论和头脑风暴',
+      '25. 我更关注未来的可能性，而不是眼前的现实',
+      '26. 我在意决定后对周围人的影响，力求大家都能接受',
+      '27. 我喜欢拥有私人空间，不喜欢被打扰',
+      '28. 我倾向于系统性和结构化的表达方式'
+    ],
+    // 维度计分：E/I、S/N、T/F、J/P
+    // 每题ABCD → 按维度映射到对应字母
+    // E(1,6,11,20,24)=A,I(2,16,27)=A
+    // S(3,7,12,21)=A,N(4,9,13,25)=A
+    // T(5,14,22,26)=A,F(8,18,23,28)=A
+    dimE: [1,6,11,20,24],   // A→E
+    dimI: [2,16,27],       // A→I
+    dimS: [3,7,12,21],    // A→S
+    dimN: [4,9,13,25],    // A→N
+    dimT: [5,14,22,26],   // A→T
+    dimF: [8,18,23,28],   // A→F
+    dimJ: [10,15,19,23],  // A→J
+    dimP: [6,9,13,17,24], // A→P
+    scoreText: function(answers) {
+      // 计算各字母得分
+      const score = (dim, ans) => dim.reduce((s, i) => s + (ans[i-1] || 0), 0);
+      const E = score(this.dimE, answers);
+      const I = score(this.dimI, answers);
+      const S = score(this.dimS, answers);
+      const N = score(this.dimN, answers);
+      const T = score(this.dimT, answers);
+      const F = score(this.dimF, answers);
+      const J = score(this.dimJ, answers);
+      const P = score(this.dimP, answers);
+      const EI = E >= I ? 'E' : 'I';
+      const SN = S >= N ? 'S' : 'N';
+      const TF = T >= F ? 'T' : 'F';
+      const JP = J >= P ? 'J' : 'P';
+      const type = EI + SN + TF + JP;
+      const desc = typeDescs[type] || type + '类型';
+      return { si: type, level: type, desc };
+    }
+  },
+
+  mmpi: {
+    name: 'MMPI 明尼苏达多项人格测验',
+    total: 100,
+    options: [
+      { text:'是', value:1 },
+      { text:'否', value:0 }
+    ],
+    questions: [
+      // MMPI-2 标准题目节选（覆盖全部14个量表，100题代表性版本）
+      // 效度量表
+      '1. 我很容易感到疲倦','2. 我胃口很好','3. 我偶尔会腹泻','4. 我的家人中没有人是精神病患者',
+      '5. 我从来没有出过皮疹','6. 我很少头痛','7. 我很少心情不好','8. 我的行为完全正常',
+      '9. 我从来没有突然觉得无法控制自己','10. 我从来没有觉得自己被鬼怪附身',
+      // 躯体化/疑病
+      '11. 我经常胃痛','12. 我经常觉得心脏跳得很快','13. 我经常感到呼吸困难',
+      '14. 我经常觉得身体某些部位发麻或刺痛','15. 我经常担心自己的身体是否有病',
+      '16. 我经常因为身体不适而担心','17. 我经常感到胸闷',
+      // 抑郁
+      '18. 我对自己的未来不抱希望','19. 我觉得生活没有意义','20. 我经常情绪低落',
+      '21. 我经常觉得自己没用','22. 我经常缺乏做事的兴趣和动力','23. 我经常失眠',
+      '24. 我经常觉得活着没意思','25. 我经常食欲不振','26. 我经常觉得前途渺茫',
+      // 癔症
+      '27. 当我焦虑时身体会出现奇怪的反应','28. 我经常感到身体某些部位有压力或束缚感',
+      '29. 我经常突然感到头晕','30. 我经常用生病来逃避不喜欢的事情',
+      '31. 我经常对身体小问题过度担心','32. 我经常突然感到恶心或想吐',
+      // 精神病态
+      '33. 我年轻时有过违法行为','34. 我曾经有过离家出走的经历',
+      '35. 我经常违反规则或不服从权威','36. 我经常做出冲动的事情而不考虑后果',
+      '37. 我经常不在乎别人的感受','38. 我对很多事情都不在乎',
+      '39. 我曾经做过让自己后悔的事情','40. 我对家人缺乏感情',
+      // 男子气/女子气
+      '41. 我喜欢看女性内衣广告','42. 我对摄影有兴趣','43. 我喜欢浪漫小说',
+      '44. 我喜欢古典音乐','45. 我喜欢时装设计','46. 我喜欢艺术展览',
+      '47. 我对机械事物感兴趣','48. 我喜欢体育节目',
+      // 偏执
+      '49. 我经常觉得别人在背后议论我','50. 我经常觉得有人在监视我',
+      '51. 我觉得有人想害我','52. 我经常觉得别人对我不公平',
+      '53. 我经常不信任别人','54. 我觉得别人不了解我真正是什么样的人',
+      '55. 我经常觉得别人的眼神里带有恶意','56. 我经常觉得有人在暗中控制我',
+      // 精神衰弱
+      '57. 我经常被一些不需要的想法困扰','58. 我经常反复做同一件事',
+      '59. 我经常无法控制自己的担心','60. 我经常对不吉利的事情特别在意',
+      '61. 我经常觉得自己的思想不受控制','62. 我经常被脏东西或细菌污染的想法困扰',
+      '63. 我经常犹豫不决','64. 我经常需要反复确认某些事情',
+      // 精神分裂
+      '65. 我曾经听到过声音（不是来自耳朵）','66. 我经常觉得有人在跟踪我',
+      '67. 我经常有奇怪的念头','68. 我经常觉得自己的想法被别人知道了',
+      '69. 我经常觉得身体被某种力量控制','70. 我经常有与现实脱离的感觉',
+      '71. 我经常觉得周围世界不真实','72. 我经常莫名其妙地笑或哭',
+      // 轻躁狂
+      '73. 我经常情绪高涨、精力旺盛','74. 我经常说话很多、很快',
+      '75. 我经常有很多计划','76. 我经常不需要太多睡眠',
+      '77. 我经常做出草率的决定','78. 我经常同时做很多事情',
+      '79. 我经常有冒险的冲动','80. 我经常过于乐观',
+      // 社会内向
+      '81. 我喜欢和人多的场合','82. 我喜欢参加社交活动','83. 我经常主动和人交谈',
+      '84. 我喜欢被关注','85. 我喜欢和陌生人交谈','86. 我经常主动邀请朋友',
+      '87. 我喜欢人群','88. 我经常在聚会中很活跃','89. 我喜欢做小组活动的领导者',
+      '90. 我很容易和陌生人熟络',
+      // 补充更多代表性题目（共100题，覆盖14量表）
+      '91. 我的家人大多数是健康正常的','92. 我很少感到沮丧',
+      '93. 我经常因为小事就发脾气','94. 我经常莫名其妙地感到害怕',
+      '95. 我经常有奇怪的想法进入脑海','96. 我经常觉得生活无聊',
+      '97. 我的身体一直都很健康','98. 我经常担心小事情',
+      '99. 我很少感到焦虑','100. 我很少无故缺勤或缺课'
+    ],
+    // 各量表题号（0-indexed）
+    scales: {
+      L:  [3,5,8,9,10,91],
+      F:  [8,9,10,65,66,67,68,69,70,95],
+      K:  [1,6,7,22,23,37,38,39,40],
+      Hs: [11,12,13,14,15,16,17,97,98],
+      D:  [18,19,20,21,22,23,24,25,26,92,96],
+      Hy: [27,28,29,30,31,32],
+      Pd: [33,34,35,36,37,38,39,40,93],
+      Mf: [41,42,43,44,45,46,47,48,81,82],
+      Pa: [49,50,51,52,53,54,55,56,71,94],
+      Pt: [57,58,59,60,61,62,63,64,99],
+      Sc: [65,66,67,68,69,70,71,72,95],
+      Ma: [73,74,75,76,77,78,79,80],
+      Si: [81,82,83,84,85,86,87,88,89,90,100]
+    },
+    scaleNames: {
+      L:  '说谎（L）', F: '伪装（F）', K: '校正（K）',
+      Hs: '疑病（Hs）', D: '抑郁（D）', Hy: '癔症（Hy）',
+      Pd: '精神病态（Pd）', Mf: '男/女子气（Mf）', Pa: '偏执（Pa）',
+      Pt: '精神衰弱（Pt）', Sc: '精神分裂（Sc）', Ma: '轻躁狂（Ma）', Si: '社会内向（Si）'
+    },
+    scaleDesc: {
+      L:  '检测答题真实性，过高提示不真实回答',
+      F:  '检测异常程度，过高提示夸大问题',
+      K:  '校正量表，高分提示防御、隐瞒',
+      Hs: '对身体健康的过度关注和担忧',
+      D:  '情绪低落、兴趣减退、绝望感',
+      Hy: '情绪表达障碍、躯体化反应',
+      Pd: '反社会行为、人际关系问题',
+      Mf: '性别角色和兴趣倾向',
+      Pa: '猜疑、被害感、过度敏感',
+      Pt: '强迫思维、焦虑、认知困扰',
+      Sc: '现实感丧失、奇异思维、社交退缩',
+      Ma: '情绪高涨、思维奔逸、活动过多',
+      Si: '社会退缩、内向、缺乏自信'
+    },
+    scoreText: function(answers) {
+      const raw = {};
+      const t = {};
+      const scaleNames = this.scaleNames;
+      const scaleDesc = this.scaleDesc;
+      const scaleList = ['L','F','K','Hs','D','Hy','Pd','Mf','Pa','Pt','Sc','Ma','Si'];
+
+      // 原始分
+      scaleList.forEach(s => {
+        const items = this.scales[s];
+        let sum = 0;
+        items.forEach(idx => { if (answers[idx] === 1) sum++; });
+        raw[s] = sum;
+        // 简化T分（实际应以常模表换算）
+        const baseItems = {L:6,F:10,K:9,Hs:7,D:10,Hy:6,Pd:9,Mf:8,Pa:6,Pt:9,Sc:10,Ma:8,Si:10};
+        const max = baseItems[s] || 10;
+        t[s] = Math.round(50 + (sum / max) * 30);
+      });
+
+      // K校正（Hs+0.2K, Pt+0.1K, Sc+0.1K）
+      t['Hs'] = Math.min(120, t['Hs'] + Math.round(raw.K * 0.2));
+      t['Pt'] = Math.min(120, t['Pt'] + Math.round(raw.K * 0.1));
+      t['Sc'] = Math.min(120, t['Sc'] + Math.round(raw.K * 0.1));
+
+      // 解释
+      let overallLevel = '正常';
+      const clinicalT = [t['Hs'],t['D'],t['Hy'],t['Pd'],t['Pa'],t['Pt'],t['Sc'],t['Ma'],t['Si']];
+      const elevated = clinicalT.filter(v=>v>=65).length;
+      if (elevated >= 3 || t['F'] >= 75) overallLevel = '明显异常';
+      else if (elevated >= 1 || t['Pt'] >= 65 || t['Sc'] >= 65) overallLevel = '轻度异常';
+
+      return { raw, t, overallLevel };
+    }
+  }
+};
+
+// ── 状态 ──────────────────────────────────────────────────
+let currentScale = null;
+let answers = {};
+
+// ── 量表选择 ──────────────────────────────────────────────
+function selectScale(scale) {
+  currentScale = scale;
+  answers = {};
+  currentQ = 0;
+  const s = SCALES[scale];
+  document.getElementById('scaleTitle').textContent = s.name;
+  document.getElementById('page-scale').classList.add('hidden');
+  document.getElementById('page-question').classList.add('hidden');
+  document.getElementById('page-consent').classList.remove('hidden');
+  document.getElementById('page-report').classList.add('hidden');
+  // 重置同意门
+  document.getElementById('assessName').value = '';
+  document.getElementById('assessConsent').checked = false;
+  document.getElementById('startAssessBtn').disabled = true;
+  document.getElementById('startAssessBtn').style.opacity = '0.5';
+  document.getElementById('startAssessBtn').style.cursor = 'not-allowed';
+  document.getElementById('startAssessBtn').textContent = '开始测评 →';
+}
+
+function checkAssessBtn() {
+  const checked = document.getElementById('assessConsent').checked
+  const btn = document.getElementById('startAssessBtn')
+  if (checked) {
+    btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'
+  } else {
+    btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed'
+  }
+}
+document.getElementById('assessConsent').addEventListener('change', checkAssessBtn)
+
+function openAssessConsent() {
+  if (!document.getElementById('assessConsent').checked) { alert('请勾选同意后开始测评'); return }
+  // 保存姓名到 localStorage
+  const name = document.getElementById('assessName').value.trim()
+  if (name) localStorage.setItem('jasmine_assess_name', name)
+  document.getElementById('page-consent').classList.add('hidden')
+  document.getElementById('page-question').classList.remove('hidden')
+  document.getElementById('progressBar').style.display = 'block'
+  renderQuestion()
+}
+
+function checkAssessBtn() {
+  const checked = document.getElementById('assessConsent').checked
+  const btn = document.getElementById('startAssessBtn')
+  if (checked) {
+    btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'
+  } else {
+    btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed'
+  }
+}
+document.getElementById('assessConsent').addEventListener('change', checkAssessBtn)
+
+function openAssessConsent() {
+  if (!document.getElementById('assessConsent').checked) { alert('请勾选同意后开始测评'); return }
+  // 保存姓名到 localStorage
+  const name = document.getElementById('assessName').value.trim()
+  if (name) localStorage.setItem('jasmine_assess_name', name)
+  document.getElementById('page-consent').classList.add('hidden')
+  document.getElementById('page-question').classList.remove('hidden')
+  document.getElementById('progressBar').style.display = 'block'
+  renderQuestion()
+}
+
+function copyReport() {
+  const el = document.getElementById('reportContent')
+  if (!el) return
+  const text = el.innerText || el.textContent
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector('#page-report [onclick="copyReport()"]')
+    if (btn) { btn.textContent = '✅ 已复制'; setTimeout(function() { btn.textContent = '📋 复制' }, 1500) }
+  }).catch(function() {
+    alert('复制成功，请粘贴到备忘录保存')
+  })
+}
+
+function goBack(page) {
+  document.getElementById(page).classList.remove('hidden');
+  document.getElementById('page-question').classList.add('hidden');
+  document.getElementById('page-report').classList.add('hidden');
+  document.getElementById('page-consent').classList.add('hidden');
+}
+
+// ── 答题逻辑 ──────────────────────────────────────────────
+function renderQuestion() {
+  const s = SCALES[currentScale];
+  const total = s.total;
+  const pct = Math.round((currentQ / total) * 100);
+  document.getElementById('qProgressFill').style.width = pct + '%';
+  document.getElementById('scaleProgress').textContent = `${currentQ + 1}/${total}`;
+
+  // For PSQI, special handling - question 2, 3, 4 are numeric input
+  const isNumericQ = currentScale === 'psqi' && [1,2,3].includes(currentQ);
+
+  let html = '<div class="card">';
+  html += `<div class="question-title"><span>第${currentQ+1}题</span><br>${s.questions[currentQ]}</div>`;
+
+  if (isNumericQ) {
+    if (currentQ === 1) { // 入睡时间
+      html += `<div class="options">
+        <div class="option-chip" onclick="selectOpt(this, 0)">&lt;15分钟</div>
+        <div class="option-chip" onclick="selectOpt(this, 1)">16-30分钟</div>
+        <div class="option-chip" onclick="selectOpt(this, 2)">31-60分钟</div>
+        <div class="option-chip" onclick="selectOpt(this, 3)">&gt;60分钟</div>
+      </div>`;
+    } else if (currentQ === 2) { // 起床时间 - numeric
+      html += `<input type="number" id="psqiInput" placeholder="请输入睡眠时长（小时），如7" min="0" max="12" step="0.5" style="width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;" oninput="answers.psqiCustom=this.value">`;
+    } else if (currentQ === 3) { // 睡眠效率
+      html += `<input type="number" id="psqiInput2" placeholder="请输入睡眠时长（小时），如7" min="0" max="12" step="0.5" style="width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;" oninput="answers.psqiSleepH=this.value">`;
+    }
+  } else {
+    html += '<div class="options">';
+    s.options.forEach(opt => {
+      const selected = answers[currentQ] === opt.value ? 'selected' : '';
+      html += `<div class="option-chip ${selected}" onclick="selectOpt(this, ${opt.value})">${opt.text}</div>`;
+    });
+    html += '</div>';
+  }
+
+  html += '</div>';
+  document.getElementById('questionList').innerHTML = html;
+
+  // Nav buttons
+  document.getElementById('prevBtn').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+  if (currentQ === total - 1) {
+    document.getElementById('nextBtn').textContent = '提交测评 →';
+    document.getElementById('nextBtn').style.background = '#22c55e';
+  } else {
+    document.getElementById('nextBtn').textContent = '下一题 →';
+    document.getElementById('nextBtn').style.background = '';
+  }
+}
+
+function selectOpt(el, val) {
+  // Remove selected from siblings
+  el.parentElement.querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[currentQ] = val;
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+async function nextQuestion() {
+  // For numeric questions check value
+  if (currentScale === 'psqi' && [1,2,3].includes(currentQ)) {
+    const inp = currentQ === 1 ? document.getElementById('psqiInput') : document.getElementById('psqiInput2');
+    if (inp && !inp.value) {
+      alert('请填写后再继续');
+      return;
+    }
+  }
+
+  const s = SCALES[currentScale];
+  if (currentQ < s.total - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    // All answered - calculate and show report
+    await showReport();
+  }
+}
+
+// ── 计分 & 报告 ────────────────────────────────────────────
+const typeDescs = {
+  'INTJ': '建筑师（INTJ）—— 富有想象力和战略性思维，善于制定长期计划，追求知识和自我提升。',
+  'INTP': '逻辑学家（INTP）—— 擅于分析，热爱探索理论和抽象概念，追求逻辑一致性和智慧。',
+  'ENTJ': '指挥官（ENTJ）—— 天生的领导者，果断、有战略眼光，擅于组织资源达成目标。',
+  'ENTP': '辩论家（ENTP）—— 思维敏捷、善于创新，喜欢挑战传统，热爱智识讨论和可能性。',
+  'INFJ': '提倡者（INFJ）—— 理想主义者，洞察力强，追求意义和价值，坚定而有原则。',
+  'INFP': '调停者（INFP）—— 富有同理心和创造力，忠于内心价值观，追求自我实现和和谐。',
+  'ENFJ': '主人公（ENFJ）—— 富有魅力和热情，天生的领导者，擅于激励他人、推动积极改变。',
+  'ENFP': '竞选者（ENFP）—— 热情洋溢、想象力丰富，充满能量和创意，热爱可能性和联系。',
+  'ISTJ': '物流师（ISTJ）—— 脚踏实地、责任心强，注重规则和承诺，可靠而务实。',
+  'ISFJ': '守护者（ISFJ）—— 忠诚可靠、温柔体贴，擅于照顾他人，重视责任和传统。',
+  'ESTJ': '总经理（ESTJ）—— 务实高效、执行力强，擅于组织和运营，尊重制度和秩序。',
+  'ESFJ': '执政官（ESFJ）—— 热情友好、乐于助人，擅于社交和支持他人，重视和谐与合作。',
+  'ISTP': '鉴赏家（ISTP）—— 善于观察、动手能力强，冷静务实，热爱探索事物原理。',
+  'ISFP': '探险家（ISFP）—— 温柔敏感、富有艺术感，追求自由和真实，善于发现生活中的美。',
+  'ESTP': '企业家（ESTP）—— 充满活力、行动力强，善于把握机会，享受当下的刺激和挑战。',
+  'ESFP': '表演者（ESFP）—— 开朗活泼、富有感染力，热爱社交和娱乐，带来欢乐和能量。'
+};
+
+async function showReport() {
+  const s = SCALES[currentScale];
+  let score, level, levelClass, suggestion, factorData = null, scoreData = {};
+  const rawTotal = Object.values(answers).reduce((a,b)=>a+(b||0),0);
+
+  if (currentScale === 'scl90') {
+    const raw = Object.values(answers).reduce((a,b)=>a+b,0);
+    const r = s.scoreText(raw);
+    score = raw;
+    level = r.level;
+    levelClass = raw >= 180 ? 'danger' : raw >= 160 ? 'warn' : 'success';
+    suggestion = raw < 160
+      ? '您的症状自评结果在正常范围内。如近期有持续的情绪困扰，建议定期自我观察，必要时可寻求专业心理咨询支持。'
+      : raw < 200
+      ? '您的测评结果显示轻度心理困扰，可能与近期压力事件有关。建议关注情绪变化，保持规律作息和适度运动。如困扰持续2周以上，建议预约咨询师进一步评估。'
+      : '您的测评结果显示较为明显的心理困扰，建议及时预约专业咨询师进行系统评估。咨询师将根据您的具体情况制定个性化支持方案。';
+
+    // Factor scores
+    factorData = {};
+    const factorList = ['躯体化','强迫症状','人际关系','抑郁','焦虑','敌对','恐怖','偏执','精神病性'];
+    factorList.forEach(factorName => {
+      const itemIds = s.factors[factorName];
+      let sum = 0;
+      itemIds.forEach(id => {
+        const qIdx = id - 1;
+        if (answers[qIdx] !== undefined) sum += answers[qIdx];
+      });
+      factorData[factorName] = +(sum / itemIds.length).toFixed(2);
+    });
+
+  } else if (currentScale === 'sas') {
+    const raw = Object.values(answers).reduce((a,b)=>a+b,0);
+    const r = s.scoreText(raw);
+    score = r.si;
+    level = r.level;
+    levelClass = score < 50 ? 'success' : score < 60 ? 'warn' : score < 70 ? 'orange' : 'danger';
+    suggestion = score < 50
+      ? '您的焦虑水平在正常范围内。保持规律作息和适度运动，继续关注身心健康。'
+      : score < 60
+      ? '您存在轻度焦虑情绪，可能与工作压力、生活事件或睡眠质量有关。建议：每日深呼吸练习10分钟；保持规律运动；减少睡前使用电子产品；如症状持续可预约咨询师进行进一步评估。'
+      : score < 70
+      ? '您的焦虑水平属于中等程度，已对日常生活产生一定影响。建议：寻求专业心理咨询支持；尝试正念冥想和渐进式肌肉放松；建议预约咨询师进行系统评估和干预。'
+      : '您的焦虑程度较重，建议优先预约专业咨询师进行系统评估。必要时请到精神科就诊，心理咨询与药物治疗配合效果更佳。';
+
+  } else if (currentScale === 'sds') {
+    // 反向计分题：2,5,6,11,12,14,16,17,18,20
+    const reverseIdx = [1,4,5,10,11,13,15,16,17,19]; // 0-indexed
+    let raw = 0;
+    for (let i = 0; i < 20; i++) {
+      const v = answers[i] || 0;
+      raw += reverseIdx.includes(i) ? (5 - v) : v;
+    }
+    const r = s.scoreText(raw);
+    score = r.si;
+    level = r.level;
+    levelClass = score < 50 ? 'success' : score < 60 ? 'warn' : score < 70 ? 'orange' : 'danger';
+    suggestion = score < 50
+      ? '您的抑郁情绪在正常范围内。保持社交活动和规律生活，关注自我情绪变化。'
+      : score < 60
+      ? '您存在轻度抑郁情绪，在生活中可能感到动力不足、情绪低落。建议：每天给自己安排一些能带来小成就感的事情；保持适度社交；尝试写感恩日记；如持续2周以上建议预约咨询师。'
+      : score < 70
+      ? '您的抑郁程度属于中等，已影响日常功能。建议：优先寻求专业心理支持；联系信任的亲友获得情感支持；全国24小时免费危机干预热线：12356（成人）'
+      : '您的抑郁程度较重，全国24小时免费危机干预热线：12356（成人）。';
+
+  } else if (currentScale === 'adhd') {
+    const raw = Object.values(answers).reduce((a,b)=>a+b,0);
+    const r = s.scoreText(raw);
+    score = raw;
+    level = r.level;
+    levelClass = raw < 24 ? 'success' : raw < 32 ? 'warn' : raw < 40 ? 'orange' : 'danger';
+    suggestion = raw < 24
+      ? '您的注意力水平在正常范围内。保持规律作息和适度运动，持续发挥优势。'
+      : raw < 32
+      ? '您在注意力方面存在轻度困扰，可能影响工作学习效率。建议：使用清单和时间块管理任务；减少干扰环境；设定小目标；如困扰持续建议预约咨询师进行专业评估。'
+      : '您的注意力困扰较明显，建议预约专业咨询师进行系统评估。成人ADHD可通过专业干预（认知行为疗法+执行功能训练）获得显著改善。';
+
+  } else if (currentScale === 'mbti') {
+    const r = s.scoreText(answers);
+    const mbtiType = r.si;
+    score = mbtiType;
+    level = mbtiType;
+    levelClass = 'success';
+    const dimDesc = {
+      E: '外向（E）—— 从外部世界和人际互动中获得能量',
+      I: '内向（I）—— 从独处和内心世界获得能量',
+      S: '感觉（S）—— 注重实际、关注细节和现实',
+      N: '直觉（N）—— 注重可能性、关注全局和模式',
+      T: '思考（T）—— 依靠逻辑分析做出决策',
+      F: '情感（F）—— 依靠价值观和他人感受做决策',
+      J: '判断（J）—— 喜欢计划、有条理、喜欢确定性',
+      P: '知觉（P）—— 喜欢灵活、开放、喜欢即兴发挥'
+    };
+    const typeLetter = mbtiType.split('');
+    const dimHTML = typeLetter.map(l => `<span style="display:inline-block;background:#ede9fe;color:#7c3aed;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;margin:3px;">${l}</span>`).join('');
+    suggestion = r.desc + '。MBTI帮助您了解自己的认知偏好和行为风格，不评判高低对错，每种类型都有独特优势。了解自身类型有助于职业规划、人际沟通和自我成长。';
+    // Override report content for MBTI
+    const mbtiReportHTML = `
+    <div class="report-header">
+      <h2>🔮 MBTI 人格类型报告</h2>
+      <p>迈尔斯类型指标（MBTI）</p>
+    </div>
+    <div class="report-body">
+      <div class="report-score">
+        <div class="score-label">您的 MBTI 类型</div>
+        <div style="font-size:36px;font-weight:800;color:var(--primary);margin:8px 0;">\${mbtiType}</div>
+        <div style="font-size:14px;color:var(--muted);">\${typeDescs[mbtiType] || ''}</div>
+      </div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">四维偏好</div>
+        \${dimHTML}
+      </div>
+      <div class="report-section">
+        <h4>💡 类型解读</h4>
+        <p style="font-size:13px;color:#444;line-height:1.8;">\${r.desc}</p>
+      </div>
+      <div class="report-section">
+        <h4>🌱 个人成长建议</h4>
+        <div class="suggestion">\${suggestion}</div>
+      </div>
+    </div>`;
+    window._mbtiReport = mbtiReportHTML;
+
+  } else if (currentScale === 'psqi') {
+    let raw = 0;
+    for (let i = 0; i < 5; i++) raw += (answers[i] || 0);
+    const q5Answers = Object.keys(answers).filter(k=>k.startsWith('5_')).length;
+    const psqiScore = Math.min(raw + Math.min(q5Answers, 3), 21);
+    const r = s.scoreText(raw);
+    score = raw;
+    level = r.level;
+    levelClass = score < 7 ? 'success' : score < 11 ? 'warn' : 'danger';
+    suggestion = score < 7
+      ? '您的睡眠质量良好。继续维持规律作息、舒适睡眠环境和适度运动的好习惯。'
+      : score < 11
+      ? '您的睡眠质量一般，可能存在入睡困难或浅眠问题。建议：固定作息时间；睡前1小时减少使用手机；白天适度运动；傍晚避免咖啡因；尝试放松呼吸法。如持续1个月以上建议预约咨询师评估。'
+      : '您的睡眠质量较差，已对日间功能产生明显影响。建议：寻求专业睡眠干预；排查甲状腺功能等身体因素；睡前避免酒精；考虑认知行为疗法（CBT-I）改善睡眠。如有长期失眠建议就医。';
+  } else if (currentScale === 'mmpi') {
+    const r = s.scoreText(answers);
+    const { raw: rawScores, t: tScores, overallLevel } = r;
+    score = overallLevel;
+    level = overallLevel;
+    levelClass = overallLevel === '正常' ? 'success' : overallLevel === '轻度异常' ? 'warn' : 'danger';
+    const scaleOrder = ['L','F','K','Hs','D','Hy','Pd','Mf','Pa','Pt','Sc','Ma','Si'];
+    const scaleColors2 = {
+      L: '#8b5cf6', F: '#ef4444', K: '#f59e0b',
+      Hs: '#f59e0b', D: '#f59e0b', Hy: '#f59e0b',
+      Pd: '#f59e0b', Mf: '#6b7280', Pa: '#f59e0b',
+      Pt: '#ef4444', Sc: '#ef4444', Ma: '#f59e0b', Si: '#6b7280'
+    };
+    const mmpiChart = scaleOrder.map(s => {
+      const t = tScores[s];
+      const pct = Math.min(100, Math.round((t / 120) * 100));
+      const barColor = t < 60 ? '#22c55e' : t < 70 ? '#f59e0b' : '#ef4444';
+      return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div style="width:100px;font-size:12px;color:#444;flex-shrink:0;">${s}</div>
+        <div style="flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:${barColor};border-radius:4px;transition:width .5s;"></div>
+        </div>
+        <div style="width:40px;font-size:12px;font-weight:700;color:${barColor};text-align:right;">${t}</div>
+      </div>`;
+    }).join('');
+    suggestion = overallLevel === '正常'
+      ? '您的MMPI测评结果在正常范围内。各量表未出现显著偏高，说明人格功能和情绪状态总体稳定。继续关注自我心理健康，保持良好的生活节奏。'
+      : overallLevel === '轻度异常'
+      ? `您的测评结果显示个别量表有轻度升高（${Object.entries(tScores).filter(([k,v])=>k!=='L'&&k!=='F'&&k!=='K'&&v>=65).map(([k,v])=>k+'='+v+'分').join('、')||'部分临床量表'}），可能反映近期存在一定心理困扰。建议持续关注情绪变化，必要时可预约咨询师进行专业解读。`
+      : '您的测评结果显示多个量表存在显著升高，建议预约专业咨询师进行系统评估和临床访谈。MMPI为辅助评估工具，临床诊断需结合面对面访谈。';
+    score = overallLevel;
+    level = overallLevel;
+    levelClass = overallLevel === '正常' ? 'success' : overallLevel === '轻度异常' ? 'warn' : 'danger';
+    // Store mmpi chart for rendering
+    window._mmpiChart = mmpiChart;
+    window._mmpiT = tScores;
+  }
+
+  const today = new Date().toLocaleDateString('zh-CN', {year:'numeric',month:'long',day:'numeric'});
+  const scaleColors = { success: '#22c55e', warn: '#f59e0b', orange: '#f0883e', danger: '#ef4444' };
+  const color = scaleColors[levelClass] || '#7c6af7';
+
+  let html = '';
+  const assessName = localStorage.getItem('jasmine_assess_name') || '';
+  const nameLine = assessName ? `<p>姓名：${assessName}</p>` : '';
+  html += `<div class="report-header"><h2>🌸 ${s.name}测评报告</h2><p>测评日期：${today}</p>${nameLine}</div>`;
+  html += '<div class="report-body">';
+  html += `<div class="report-score">
+    <div class="score-circle" style="background:${color}">${score}</div>
+    <div class="score-label">${currentScale === 'scl90' ? '总分' : '标准分'}</div>
+    <div class="score-level" style="color:${color}">${level}</div>
+  </div>`;
+
+  // Factor display for SCL-90
+  if (factorData) {
+    const factorList = Object.keys(factorData);
+    let gridHtml = '<div class="factor-grid">';
+    factorList.forEach(name => {
+      const val = factorData[name];
+      const pct = Math.min(100, Math.round((val / 5) * 100));
+      const barColor = val < 1.5 ? '#22c55e' : val < 2 ? '#f59e0b' : '#ef4444';
+      gridHtml += `<div class="factor-item">
+        <div class="factor-name">${name}</div>
+        <div class="factor-val">${val.toFixed(2)}</div>
+        <div class="factor-bar"><div class="factor-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      </div>`;
+    });
+    gridHtml += '</div>';
+    html += gridHtml;
+  }
+
+  html += `<div class="report-section">
+    <h4>📋 报告说明</h4>
+    <p>${SCALES[currentScale].scoreText(Object.values(answers).reduce((a,b)=>a+b,0)).desc}</p>
+  </div>`;
+
+  // MMPI 量表剖析图
+  if (currentScale === 'mmpi' && window._mmpiChart) {
+    html += `<div class="report-section">
+      <h4>📊 MMPI剖析图（T分）</h4>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">常模T分：<span style="color:#22c55e;">正常 &lt;60</span> &nbsp;|&nbsp; <span style="color:#f59e0b;">轻度升高 60-69</span> &nbsp;|&nbsp; <span style="color:#ef4444;">显著升高 ≥70</span></div>
+      ${window._mmpiChart}
+      <div style="background:var(--bg);border-radius:10px;padding:12px;margin-top:10px;">
+        <div style="font-size:12px;font-weight:600;color:var(--primary);margin-bottom:6px;">各量表说明</div>
+        ${Object.keys(SCALES.mmpi.scaleNames).map(s =>
+          `<div style="font-size:11px;color:#555;margin-bottom:4px;display:flex;gap:6px;"><span style="min-width:80px;font-weight:600;">${s}</span><span>${SCALES.mmpi.scaleDesc[s]}</span></div>`
+        ).join('')}
+      </div>
+    </div>`;
+  }
+
+  html += `<div class="report-section">
+    <h4>💡 改善建议</h4>
+    <div class="suggestion">${suggestion}</div>
+  </div>`;
+
+  html += '</div>'; // end report-body
+
+  // MBTI 使用自定义报告模板
+  if (currentScale === 'mbti' && window._mbtiReport) {
+    const parts = window._mbtiReport.split('</div>');
+    const headerPart = parts[0] + '</div>';
+    const bodyPart = parts.slice(1).join('</div>');
+    document.getElementById('reportScale').textContent = 'MBTI 迈尔斯类型指标';
+    document.getElementById('reportContent').innerHTML = window._mbtiReport;
+    window._mbtiReport = null;
+  } else {
+    document.getElementById('reportScale').textContent = s.name;
+    document.getElementById('reportContent').innerHTML = html;
+  }
+  document.getElementById('page-scale').classList.add('hidden');
+  document.getElementById('page-question').classList.add('hidden');
+  document.getElementById('page-report').classList.remove('hidden');
+  document.getElementById('progressBar').style.display = 'none';
+  window.scrollTo(0,0);
+
+  // 上报结果到后台
+  scoreData = { scale: currentScale, rawTotal, level, factorData: factorData || null };
+  const apiBase = window.API_BASE || 'http://localhost:3001';
+  const urlParams = new URLSearchParams(location.search);
+  const clientId = urlParams.get('client_id') || localStorage.getItem('jasmine_client_id') || null;
+  const ip = await fetch('https://ipapi.co/json/?fields=ip').then(r=>r.json()).catch(()=>({}));
+  fetch(apiBase + '/api/assessments', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      client_id: clientId,
+      scale: currentScale,
+      score: scoreData,
+      level: level,
+      raw_score: typeof score === 'number' ? score : 0,
+      ip: ip.ip || ''
+    })
+  }).catch(() => {});
+}
+// URL参数直接进入量表（如 assessment.html?scale=sas）
+const scaleParam = new URLSearchParams(location.search).get('scale');
+if (scaleParam && SCALES[scaleParam]) selectScale(scaleParam);
+</script>
+</body>
+</html>

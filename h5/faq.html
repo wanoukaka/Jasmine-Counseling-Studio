@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>常见问题 - 茉莉心理咨询工作室</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#7c6af7;
+    --primary-light:#a89bfa;
+    --lavender:#C4B5FD;
+    --bg:#f5f3ff;
+    --white:#ffffff;
+    --text:#1a1a2e;
+    --muted:#8b8b9e;
+    --border:#e8e4ff;
+    --green:#22c55e;
+    --green-light:#D1FAE5;
+    --orange:#f59e0b;
+    --orange-light:#FEF3C7;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:15px;min-height:100vh;padding-bottom:80px}
+  .header{background:var(--white);padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px}
+  .header img{width:42px;height:42px;border-radius:10px;object-fit:cover;flex-shrink:0}
+  .header h1{font-size:15px;font-weight:700;color:var(--primary)}
+  .header p{font-size:11px;color:var(--muted);margin-top:2px}
+  .back-btn{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--primary);cursor:pointer;margin-right:auto}
+  .back-btn:active{opacity:.7}
+  .page{padding:16px}
+  /* 顶部banner */
+  .faq-banner{background:linear-gradient(135deg,#7c6af7,#a89bfa);border-radius:16px;padding:24px 20px;text-align:center;color:#fff;margin-bottom:16px}
+  .faq-banner h2{font-size:20px;font-weight:700;margin-bottom:8px}
+  .faq-banner p{font-size:13px;opacity:.9;line-height:1.6}
+  /* 分类导航 */
+  .faq-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .faq-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);background:var(--white);transition:all .2s}
+  .faq-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  /* FAQ列表 */
+  .faq-section{margin-bottom:20px}
+  .faq-section-title{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .faq-item{background:var(--white);border-radius:14px;margin-bottom:8px;border:1px solid var(--border);overflow:hidden}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text)}
+  .faq-q .arrow{font-size:12px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+  .faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+  .faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;background:var(--white)}
+  .faq-item.open .faq-a{max-height:400px;padding:0 16px 14px}
+  .faq-a p{font-size:13px;color:var(--muted);line-height:1.8}
+  /* 提示卡片 */
+  .tip-card{background:var(--orange-light);border-radius:14px;padding:14px 16px;margin-bottom:16px;border:1px solid #FDE68A;display:flex;gap:10px;align-items:flex-start}
+  .tip-icon{font-size:20px;flex-shrink:0}
+  .tip-content{font-size:13px;color:var(--text);line-height:1.7}
+  .tip-content strong{color:var(--orange)}
+  /* CTA */
+  .cta-section{padding:8px 0 8px}
+  .btn-primary{background:var(--primary);color:#fff;border:none;border-radius:14px;padding:15px 0;font-size:16px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 14px rgba(124,106,247,0.35)}
+  .btn-primary:active{opacity:.85}
+  /* 底部导航 */
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);display:flex;z-index:20;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(124,106,247,0.08)}
+  .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--muted);font-size:10px;transition:all .2s;padding:4px 0;border-radius:8px}
+  .tab-item.active{color:var(--primary);font-weight:600}
+  .tab-icon{display:block;width:22px;height:22px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="back-btn" onclick="location.href='index.html'">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    返回
+  </div>
+  <img src="images/logo.jpg" loading="lazy" alt="茉莉心理">
+  <div>
+    <h1>常见问题</h1>
+    <p>关于心理咨询，您想知道的</p>
+  </div>
+</div>
+
+<div class="page">
+  <!-- Banner -->
+  <div class="faq-banner">
+    <h2>💡 有什么疑问？</h2>
+    <p>我们整理了来访者最常问的问题<br>希望帮助您更了解心理咨询</p>
+  </div>
+
+  <!-- 分类标签 -->
+  <div class="faq-tabs">
+    <div class="faq-tab active" onclick="filterFAQ('all')">全部</div>
+    <div class="faq-tab" onclick="filterFAQ('about')">关于咨询</div>
+    <div class="faq-tab" onclick="filterFAQ('fee')">费用说明</div>
+    <div class="faq-tab" onclick="filterFAQ('process')">预约流程</div>
+    <div class="faq-tab" onclick="filterFAQ('privacy')">隐私保护</div>
+  </div>
+
+  <!-- 关于咨询 -->
+  <div class="faq-section" data-cat="about">
+    <div class="faq-section-title">🔵 关于心理咨询</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>心理咨询和聊天有什么区别？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>心理咨询不是普通的聊天。心理咨询师受过专业训练，会帮助你深入探索自己的情绪、思维模式和行为背后的原因，而不是简单给建议。咨询是一个安全、保密的空间，你可以完全真实地表达自己。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>我需要心理咨询吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>如果您正在经历：持续的负面情绪（焦虑、抑郁）、人际关系困扰、婚恋感情问题、职业发展迷茫、自我认知困惑，或者只是想更好地了解自己——心理咨询都可以提供帮助。寻求帮助是勇敢的表现，不是软弱。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>咨询多少次才有效果？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>因人而异。有些人几次就能感受到明显的改善，有些则需要更持续的陪伴。通常在第3-4次咨询后，你和咨询师建立了足够的信任关系，探索会逐渐深入，效果也会更明显。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>线上咨询效果好吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>线上咨询（视频）效果与面对面咨询相当，而且很多人反馈：在家熟悉的环境里，反而更容易放松和敞开。我们使用腾讯会议，画质清晰稳定。</p></div>
+    </div>
+  </div>
+
+  <!-- 费用说明 -->
+  <div class="faq-section" data-cat="fee">
+    <div class="faq-section-title">💰 费用说明</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>咨询费用是多少？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>首次体验访谈：¥299/50分钟<br>正式咨询（单次）：¥600/50分钟<br>成长陪伴套餐（15次）：¥8,550（9.5折）<br>关系重建套餐（25次）：¥13,500（9折）<br>伴侣/家庭咨询：¥900/80分钟</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>为什么心理咨询要收费？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>收费本身就是咨询效果的一部分。研究表明，来访者付费后更认真对待咨询，也更容易从中获益。同时，咨询师持续的专业学习和个人体验也需要成本。付费是对专业服务的尊重。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>可以开发票吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>可以开具正规发票。如需报销，请提前告知您的发票抬头和税号信息。</p></div>
+    </div>
+  </div>
+
+  <!-- 预约流程 -->
+  <div class="faq-section" data-cat="process">
+    <div class="faq-section-title">📋 预约流程</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>如何预约咨询？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>Step 1：点击下方「立即预约」，填写基本信息和您的困扰<br>Step 2：支付首次访谈费用<br>Step 3：预约成功后，咨询师会在24小时内联系您确认时间<br>Step 4：咨询开始前5分钟，收到腾讯会议链接</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>预约后可以取消吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>可以。请至少提前24小时告知取消或改期，费用全额退还。24小时内取消将收取50%费用。如遇紧急情况可协商处理。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>咨询时间可以调整吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>可以。固定来访者可在下次咨询前协商调整时间，我们会尽量配合您的作息安排。</p></div>
+    </div>
+  </div>
+
+  <!-- 隐私保护 -->
+  <div class="faq-section" data-cat="privacy">
+    <div class="faq-section-title">🔒 隐私保护</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>我的咨询内容保密吗？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>严格保密。心理咨询行业有保密原则，咨询师不得将您的个人信息或咨询内容透露给任何第三方。除非：①您本人同意；②涉及法律规定的情况（如自伤/伤他风险）。其他情况下，您的隐私受到绝对保护。</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">
+        <span>我的资料会被保存多久？</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-a"><p>您的咨询记录（包括问卷和档案）将在最后一次咨询后保存3年，之后销毁。如您希望提前删除，请书面告知，我们将在30天内处理。</p></div>
+    </div>
+  </div>
+
+  <!-- 提示 -->
+  <div class="tip-card">
+    <div class="tip-icon">💬</div>
+    <div class="tip-content">
+      <strong>还有其他问题？</strong><br>
+      欢迎在首次咨询访谈时详细询问，咨询师会耐心解答您的所有疑问。
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <button class="btn-primary" onclick="location.href='intake-new.html'">立即预约咨询</button>
+  </div>
+</div>
+
+<!-- 底部导航 -->
+<div class="bottom-bar">
+  <div class="tab-item" onclick="location.href='index.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    首页
+  </div>
+  <div class="tab-item" onclick="location.href='team.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    咨询师
+  </div>
+  <div class="tab-item" onclick="location.href='intake-new.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    预约
+  </div>
+  <div class="tab-item active">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    帮助
+  </div>
+</div>
+
+<script>
+function toggleFAQ(el) {
+  const item = el.parentElement
+  item.classList.toggle('open')
+}
+function filterFAQ(cat) {
+  document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'))
+  event.target.classList.add('active')
+  document.querySelectorAll('.faq-section').forEach(s => {
+    s.style.display = cat === 'all' || s.dataset.cat === cat ? '' : 'none'
+  })
+}
+</script>
+
+</body>
+</html>

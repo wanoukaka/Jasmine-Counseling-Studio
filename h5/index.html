@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="济南茉莉心理咨询工作室，专注婚恋情感咨询，专业精神动力学派心理咨询师团队，提供心理咨询、心理测评、情感疏导服务">
+<meta name="keywords" content="心理咨询,婚恋咨询,情感咨询,心理测评,济南心理咨询,心理咨询师">
+<meta name="author" content="茉莉心理咨询工作室">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="茉莉心理咨询工作室 - 婚恋情感专业咨询">
+<meta property="og:description" content="专注婚恋情感咨询，专业精神动力学派心理咨询师团队">
+<meta property="og:type" content="website">
+<title>茉莉心理咨询工作室 - 婚恋情感专业咨询</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--primary:#7c6af7;--primary-light:#a89bfa;--primary-dark:#5b4ac7;--bg:#f5f3ff;--white:#ffffff;--text:#1a1a2e;--muted:#8b8b9e;--muted-light:#b8b5cc;--border:#e8e4ff;--success:#22c55e;--danger:#ef4444;--warning:#f59e0b;--card-radius:18px;--shadow:0 2px 16px rgba(124,106,247,0.10);--shadow-hover:0 6px 28px rgba(124,106,247,0.22)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:15px;min-height:100vh;overflow-x:hidden}
+  img{max-width:100%}
+  a{text-decoration:none;color:inherit}
+
+  /* ── 顶部导航 ── */
+  .header{background:var(--white);padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px);background:rgba(255,255,255,0.92)}
+  .header-brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+  .header-brand img{width:38px;height:38px;border-radius:10px;object-fit:cover;flex-shrink:0}
+  .header-brand-text h1{font-size:15px;font-weight:700;color:var(--primary)}
+  .header-brand-text p{font-size:11px;color:var(--muted)}
+  .header-right{text-align:right;font-size:12px;color:var(--muted)}
+  .header-date{font-size:11px;color:var(--muted)}
+
+  /* ── 通用卡片 ── */
+  .card{background:var(--white);border-radius:var(--card-radius);padding:20px;margin-bottom:14px;border:1px solid var(--border);box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s}
+  .card:hover{box-shadow:var(--shadow-hover)}
+  .card:active{transform:scale(.99)}
+
+  /* ── 通用标题（参考模板装饰线风格） ── */
+  .section-title{text-align:center;margin-bottom:24px}
+  .section-title h2{display:inline-block;position:relative;font-size:22px;font-weight:700;color:var(--text);padding:0 36px;line-height:1.4}
+  .section-title h2::before,.section-title h2::after{content:'';position:absolute;top:50%;width:28px;height:1.5px;background:var(--primary);opacity:.5}
+  .section-title h2::before{left:0}
+  .section-title h2::after{right:0}
+  .section-title h2 span{color:var(--primary)}
+  .section-title p{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+  .section-title .more{color:var(--primary);font-size:12px;font-weight:600;cursor:pointer;display:inline-block;margin-top:6px}
+
+  /* ── 胶囊按钮 ── */
+  .btn-primary{background:var(--primary);color:#fff;border:none;border-radius:50px;padding:13px 0;font-size:14px;font-weight:600;cursor:pointer;width:100%;transition:all .2s;box-shadow:0 4px 14px rgba(124,106,247,0.35)}
+  .btn-primary:hover{background:var(--primary-dark);box-shadow:0 6px 20px rgba(124,106,247,0.5)}
+  .btn-primary:active{transform:scale(.97)}
+  .btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary);border-radius:50px;padding:11px 24px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+  .btn-outline:hover{background:var(--primary);color:#fff}
+  .btn-ghost{background:var(--white);border:1.5px solid var(--border);color:var(--text);border-radius:50px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+
+  /* ── Hero Banner ── */
+  .hero-carousel{position:relative;overflow:hidden;margin:14px;border-radius:20px}
+  .hero-slides{display:flex;transition:transform .4s ease}
+  .hero-banner{position:relative;overflow:hidden;min-height:200px;display:flex;align-items:center;min-width:100%}
+  .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#7c6af7 0%,#a89bfa 50%,#c4b5fd 100%);z-index:0}
+  .hero-bg::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.4}
+  .hero-content{position:relative;z-index:1;padding:28px 24px;color:#fff;width:100%}
+  .hero-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;margin-bottom:12px;backdrop-filter:blur(4px)}
+  .hero-title{font-size:20px;font-weight:800;line-height:1.4;margin-bottom:8px}
+  .hero-title span{display:block;font-size:14px;font-weight:500;opacity:.9;margin-top:4px}
+  .hero-desc{font-size:13px;opacity:.88;line-height:1.7;margin-bottom:16px}
+  .hero-actions{display:flex;gap:10px}
+  .hero-btn-white{background:#fff;color:var(--primary);border:none;border-radius:50px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;flex:1;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+  .hero-btn-outline{background:transparent;border:1.5px solid rgba(255,255,255,0.7);color:#fff;border-radius:50px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;flex:1;text-align:center}
+  .hero-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:2}
+  .hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);transition:all .3s}
+  .hero-dot.active{width:18px;border-radius:3px;background:#fff}
+
+  /* ── 服务范围 ── */
+  .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .service-card{background:var(--white);border-radius:14px;padding:16px 14px;border:1px solid var(--border);text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+  .service-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);border-color:var(--primary-light)}
+  .service-card:active{transform:scale(.97)}
+  .service-icon{width:44px;height:44px;border-radius:12px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .service-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+  .service-sub{font-size:11px;color:var(--muted);line-height:1.5}
+  .service-tag{display:inline-block;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;margin-top:6px}
+
+  /* ── 咨询师团队 ── */
+  .team-card{background:var(--white);border-radius:var(--card-radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px;cursor:pointer;transition:all .2s}
+  .team-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px)}
+  .team-banner{height:80px;background:linear-gradient(135deg,#7c6af7,#a89bfa);position:relative;display:flex;align-items:flex-end;padding:0 16px 12px}
+  .team-avatar{width:60px;height:60px;border-radius:50%;border:3px solid #fff;background:linear-gradient(135deg,#7c6af7,#c4b5fd);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;font-weight:800;position:absolute;bottom:-30px;left:16px;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+  .team-info{padding:36px 16px 16px}
+  .team-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
+  .team-title{font-size:12px;color:var(--primary);font-weight:600;margin-bottom:4px}
+  .team-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .team-tag{background:#f5f3ff;color:var(--primary);border-radius:8px;padding:3px 10px;font-size:11px;font-weight:600}
+  .team-tag.green{background:#dcfce7;color:#16a34a}
+  .team-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .team-meta-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+
+  /* ── 咨询流程 ── */
+  .flow-row{display:flex;gap:6px;text-align:center;align-items:center;padding:4px 0}
+  .flow-step{flex:1;background:#f5f3ff;border-radius:12px;padding:12px 6px;border:1px solid var(--border)}
+  .flow-icon{font-size:24px;margin-bottom:4px}
+  .flow-label{font-size:12px;font-weight:700;color:var(--text)}
+  .flow-sub{font-size:10px;color:var(--muted);margin-top:2px}
+  .flow-arrow{font-size:14px;color:var(--muted);flex:0 0 auto}
+
+  /* ── 价格表 ── */
+  .price-card{background:var(--white);border-radius:var(--card-radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px}
+  .price-header{background:linear-gradient(135deg,#7c6af7,#a89bfa);padding:16px 20px;color:#fff}
+  .price-header h3{font-size:16px;font-weight:800;margin-bottom:4px}
+  .price-header p{font-size:12px;opacity:.88}
+  .price-body{padding:4px 0}
+  .price-row{display:flex;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);font-size:13px;transition:background .15s}
+  .price-row:last-child{border-bottom:none}
+  .price-row:hover{background:#f5f3ff}
+  .price-row .label{color:var(--muted)}
+  .price-row .value{font-weight:700;color:var(--text)}
+  .price-row .tag{font-size:10px;background:#dcfce7;color:#16a34a;padding:1px 6px;border-radius:4px;font-weight:700;margin-left:6px}
+
+  /* ── 文章列表 ── */
+  .article-card{background:#f5f3ff;border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:all .2s}
+  .article-card:hover{background:#ede9ff;border-color:var(--primary-light);transform:translateX(2px)}
+  .article-card:active{transform:scale(.98)}
+  .article-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+  .article-content{flex:1;min-width:0}
+  .article-tag{display:inline-block;background:#fdf2f8;color:#be185d;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;margin-bottom:6px}
+  .article-tag.love{background:#fef3c7;color:#92400e}
+  .article-tag.family{background:#dbeafe;color:#1e40af}
+  .article-tag.growth{background:#d1fae5;color:#065f46}
+  .article-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:4px}
+  .article-excerpt{font-size:12px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .article-date{font-size:11px;color:var(--muted);margin-top:6px}
+  .article-arrow{font-size:18px;color:var(--muted);flex-shrink:0;align-self:center}
+
+  /* ── 来访者心声 ── */
+  .testimonial-card{background:#f5f3ff;border-radius:14px;padding:14px;border:1px solid var(--border);margin-bottom:10px;position:relative}
+  .testimonial-card::before{content:'"' ;font-size:40px;color:var(--primary);opacity:.3;position:absolute;top:4px;left:10px;font-family:Georgia,serif;line-height:1}
+  .testimonial-text{font-size:13px;color:var(--text);line-height:1.8;padding-left:20px;font-style:italic}
+  .testimonial-author{font-size:11px;color:var(--muted);margin-top:8px;padding-left:20px}
+  .testimonial-stars{color:#f59e0b;letter-spacing:-2px}
+
+  /* ── 常见问题 ── */
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .faq-item{background:#f5f3ff;border-radius:12px;padding:14px;text-align:center;border:1px solid var(--border);cursor:pointer;transition:all .2s}
+  .faq-item:hover{background:#ede9ff;border-color:var(--primary-light);transform:translateY(-1px)}
+  .faq-icon{font-size:22px;margin-bottom:8px}
+  .faq-label{font-size:12px;font-weight:700;color:var(--text)}
+
+  /* ── 快速自测 ── */
+  .quiz-card{background:#f5f3ff;border-radius:14px;padding:12px;border:1px solid var(--border);display:flex;gap:12px;align-items:center;cursor:pointer;transition:all .2s;margin-bottom:8px}
+  .quiz-card:last-child{margin-bottom:0}
+  .quiz-card:hover{background:#ede9ff;border-color:var(--primary-light);transform:translateX(2px)}
+  .quiz-icon{font-size:24px;flex-shrink:0}
+  .quiz-content{flex:1;min-width:0}
+  .quiz-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+  .quiz-sub{font-size:11px;color:var(--muted)}
+  .quiz-arrow{font-size:16px;color:var(--muted);flex-shrink:0}
+
+  /* ── 底部导航 ── */
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);display:flex;z-index:50;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));box-shadow:0 -2px 16px rgba(124,106,247,0.08)}
+  .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--muted);font-size:10px;transition:all .2s;padding:4px 0;border-radius:8px}
+  .tab-item.active{color:var(--primary);font-weight:700}
+  .tab-item.active svg{transform:scale(1.15)}
+  .tab-item svg{width:22px;height:22px;transition:transform .2s}
+
+  /* ── 悬浮预约按钮 ── */
+  .float-cta{position:fixed;bottom:70px;right:16px;background:linear-gradient(135deg,#7c6af7,#a89bfa);color:#fff;padding:11px 18px;border-radius:50px;font-size:13px;font-weight:700;box-shadow:0 4px 18px rgba(124,106,247,0.45);cursor:pointer;z-index:40;display:none;animation:breathe 2.4s ease-in-out infinite;letter-spacing:.3px}
+  @keyframes breathe{0%,100%{box-shadow:0 4px 18px rgba(124,106,247,0.4)}50%{box-shadow:0 4px 28px rgba(124,106,247,0.7)}}
+
+  /* ── 法律声明 ── */
+  .legal{text-align:center;padding:16px 16px 100px;font-size:11px;color:var(--muted);line-height:1.8}
+  .legal a{color:var(--primary)}
+
+  /* ── 间距 ── */
+  .page{padding:0 0 80px}
+  .section{padding:20px 16px}
+</style>
+</head>
+<body>
+
+<!-- ── 顶部导航 ── -->
+<div class="header">
+  <div class="header-brand" onclick="location.href='index.html'">
+    <img src="images/logo.jpg" alt="茉莉心理" loading="lazy" width="38" height="38">
+    <div class="header-brand-text">
+      <h1>茉莉心理咨询工作室</h1>
+      <p>和光同尘 · 与时舒卷</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div id="weather"><span id="city"></span> <span id="temp">--</span>°C</div>
+    <div class="header-date" id="headerDate"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var d=new Date(),days=['周日','周一','周二','周三','周四','周五','周六'];
+  document.getElementById('headerDate').textContent=(d.getMonth()+1)+'月'+d.getDate()+'日 '+days[d.getDay()];
+  var w=document.getElementById('weather');
+  if(w.dataset.set)return;w.dataset.set='1';
+  var s=document.createElement('script');
+  s.src='https://wttr.in/?format=%c %t&lang=zh';
+  s.onload=function(){
+    var t=document.getElementById('temp'),c=document.getElementById('city');
+    if(t){var m=w.textContent.match(/(-?\d+)/);if(m)t.textContent=m[1]+'°C'}
+    if(c){var cm=w.textContent.match(/[^-\d]+/);if(cm)c.textContent=cm[0].trim().split(' ')[0]}
+  };
+  document.head.appendChild(s);
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  Hero Banner（3版轮播）                      -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="hero-carousel" id="heroCarousel">
+  <div class="hero-slides" id="heroSlides">
+
+    <!-- Slide 1：依恋风格主题（薰衣草紫渐变） -->
+    <div class="hero-banner">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#7c6af7 0%,#a89bfa 50%,#c4b5fd 100%)"></div>
+      <div class="hero-content">
+        <div class="hero-title">
+          有些话，说给懂的人听
+          <span>专业婚恋心理咨询，陪你看见关系里的真实</span>
+        </div>
+        <div class="hero-desc">专注婚恋情感 · 情绪困扰 · 原生家庭创伤修复<br>国家二级心理咨询师，8000+ 小时临床经验</div>
+        <div class="hero-actions">
+          <button class="hero-btn-white" onclick="event.stopPropagation();location.href='intake.html'">立即预约 →</button>
+          <button class="hero-btn-outline" onclick="event.stopPropagation();location.href='articles.html'">了解更多</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2：直击痛点型 -->
+    <div class="hero-banner">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#ec4899 0%,#f472b6 50%,#fbcfe8 100%)"></div>
+      <div class="hero-content">
+        <div class="hero-title">
+          在关系里感到累了？
+          <span>我们一起找到答案</span>
+        </div>
+        <div class="hero-desc">每一段痛苦的关系背后，都有一个未被疗愈的自己<br>专业的陪伴，帮你找回内心的平静</div>
+        <div class="hero-actions">
+          <button class="hero-btn-white" onclick="event.stopPropagation();location.href='intake.html'">倾诉一下 →</button>
+          <button class="hero-btn-outline" onclick="event.stopPropagation();location.href='assessment-new.html'">先做测评</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3：极简温暖型 -->
+    <div class="hero-banner">
+      <div class="hero-bg" style="background:linear-gradient(135deg,#0ea5e9 0%,#38bdf8 50%,#bae6fd 100%)"></div>
+      <div class="hero-content">
+        <div class="hero-title">
+          被理解，是改变的开始
+          <span>温暖、专业、保密的咨询服务</span>
+        </div>
+        <div class="hero-desc">无论是伴侣间的疏离，还是内心的困惑<br>我们在这里，倾听你</div>
+        <div class="hero-actions">
+          <button class="hero-btn-white" onclick="event.stopPropagation();location.href='intake.html'">预约咨询 →</button>
+          <button class="hero-btn-outline" onclick="event.stopPropagation();location.href='articles.html'">阅读文章</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+    <div class="hero-dot" onclick="goSlide(2)"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  服务范围                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>您想解决<span>什么问题</span>？</h2>
+    <p>直击内心困惑，解决心理烦恼</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon" style="background:#fdf2f8">💑</div>
+      <div class="service-name">婚恋情感</div>
+      <div class="service-sub">依恋风格 · 沟通模式 · 分手创伤</div>
+      <div class="service-tag">热门</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:#fef3c7">💗</div>
+      <div class="service-name">情绪困扰</div>
+      <div class="service-sub">焦虑 · 抑郁 · 强迫 · 失眠</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:#dbeafe">🏠</div>
+      <div class="service-name">原生家庭</div>
+      <div class="service-sub">创伤修复 · 父母关系 · 成长阴影</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:#d1fae5">🌱</div>
+      <div class="service-name">自我成长</div>
+      <div class="service-sub">自我认知 · 自信建立 · 人生方向</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  快速自测                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>快速<span>心理自测</span></h2>
+    <p>3分钟，了解真实的自己</p>
+    <span class="more" onclick="location.href='assessment-new.html'">全部测评 →</span>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="quiz-card" onclick="location.href='assessment-new.html?scale=ecr'">
+      <div class="quiz-icon">🧩</div>
+      <div class="quiz-content">
+        <div class="quiz-name" style="color:#be185d">3分钟测你的依恋风格</div>
+        <div class="quiz-sub">了解你在亲密关系中的真实模式</div>
+      </div>
+      <div class="quiz-arrow">›</div>
+    </div>
+    <div class="quiz-card" onclick="location.href='assessment-new.html?scale=pws'">
+      <div class="quiz-icon">💕</div>
+      <div class="quiz-content">
+        <div class="quiz-name" style="color:var(--primary)">你的亲密关系健康吗？</div>
+        <div class="quiz-sub">10道题，看清你们的关系质量</div>
+      </div>
+      <div class="quiz-arrow">›</div>
+    </div>
+    <div class="quiz-card" onclick="location.href='assessment-new.html?scale=ls'">
+      <div class="quiz-icon">🌹</div>
+      <div class="quiz-content">
+        <div class="quiz-name" style="color:#92400e">测测你的爱情风格</div>
+        <div class="quiz-sub">你是浪漫型、占有型还是理性型？</div>
+      </div>
+      <div class="quiz-arrow">›</div>
+    </div>
+    <div class="quiz-card" onclick="location.href='assessment-new.html?scale=eqi'">
+      <div class="quiz-icon">🔋</div>
+      <div class="quiz-content">
+        <div class="quiz-name" style="color:#065f46">情绪智力测试</div>
+        <div class="quiz-sub">了解你的情绪管理能力</div>
+      </div>
+      <div class="quiz-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  咨询师团队                                -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>遇见<span>您的咨询师</span></h2>
+    <p>专业资质 · 严格保密 · 温暖陪伴</p>
+  </div>
+  <div class="team-card" onclick="location.href='team.html'">
+    <div class="team-banner">
+      <div class="team-avatar">王</div>
+    </div>
+    <div class="team-info">
+      <div class="team-name">王琳 · 主创咨询师</div>
+      <div class="team-title">国家二级心理咨询师 · 精神动力学派</div>
+      <div class="team-tags">
+        <span class="team-tag green">✅ 资质认证</span>
+        <span class="team-tag">🔒 严格保密</span>
+        <span class="team-tag">💬 平等尊重</span>
+        <span class="team-tag">🌿 真诚温暖</span>
+      </div>
+      <div class="team-meta">
+        <div class="team-meta-item">📅 8000+ 咨询小时</div>
+        <div class="team-meta-item">🎓 800+ 督导小时</div>
+        <div class="team-meta-item">💼 专注婚恋 · 情绪 · 成长</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  咨询流程                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>简单四步<span>开启咨询</span></h2>
+    <p>全程线上操作，方便快捷</p>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="flow-row">
+      <div class="flow-step">
+        <div class="flow-icon">📝</div>
+        <div class="flow-label">填写登记表</div>
+        <div class="flow-sub">2分钟</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">📅</div>
+        <div class="flow-label">预约时间</div>
+        <div class="flow-sub">灵活安排</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">💬</div>
+        <div class="flow-label">视频咨询</div>
+        <div class="flow-sub">腾讯会议</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">🌿</div>
+        <div class="flow-label">持续成长</div>
+        <div class="flow-sub">陪伴支持</div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="location.href='intake.html'" style="margin-top:16px;padding:12px 0">🌸 立即预约咨询 →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  收费标准                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="pricing">
+  <div class="section-title">
+    <h2>透明<span>收费说明</span></h2>
+    <p>明码标价，无任何隐形费用</p>
+  </div>
+  <div class="price-card">
+    <div class="price-header">
+      <h3>🌿 服务分层体系</h3>
+      <p>按需选择，丰俭由人</p>
+    </div>
+    <div class="price-body">
+      <div class="price-row" style="background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:12px;margin-bottom:10px">
+        <span class="label" style="font-weight:700;color:#166534">🤖 免费体验</span>
+        <span class="value" style="color:#166534">AI婚恋测评</span>
+      </div>
+      <div class="price-row" style="background:#eff6ff;border:1px solid #93c5fd;border-radius:12px;padding:12px;margin-bottom:10px">
+        <span class="label" style="font-weight:700;color:#1e40af">📋 专业评估</span>
+        <span class="value" style="color:#1e40af">¥999/评估报告</span>
+      </div>
+      <div class="price-row" style="background:#faf5ff;border:1px solid #c4b5fd;border-radius:12px;padding:12px;margin-bottom:10px">
+        <span class="label" style="font-weight:700;color:#7c3aed">💎 季度会员</span>
+        <span class="value" style="color:#7c3aed">¥3,999/季度</span>
+      </div>
+      <div class="price-divider"></div>
+      <div class="price-row"><span class="label">初始访谈</span><span class="value">¥299<span style="font-size:11px;color:var(--muted)">/50分钟</span></span></div>
+      <div class="price-row"><span class="label">正式咨询</span><span class="value">¥600<span style="font-size:11px;color:var(--muted)">/50分钟</span></span></div>
+      <div class="price-row"><span class="label">伴侣/家庭咨询</span><span class="value">¥900<span style="font-size:11px;color:var(--muted)">/80分钟</span></span></div>
+      <div class="price-row">
+        <span class="label">成长陪伴（15次）</span>
+        <span class="value">¥8,550</span>
+      </div>
+      <div class="price-row">
+        <span class="label">关系重建（25次）</span>
+        <span class="value">¥13,500</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  最新文章                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>阅读<span>心理资讯</span></h2>
+    <p>了解心理学，让改变发生</p>
+    <span class="more" onclick="location.href='articles.html'">全部文章 →</span>
+  </div>
+  <div id="articlesList">
+    <div class="article-card" onclick="location.href='articles.html'">
+      <div class="article-icon">💗</div>
+      <div class="article-content">
+        <div class="article-tag">情绪管理</div>
+        <div class="article-title">为什么你总是忍不住讨好别人？</div>
+        <div class="article-excerpt">讨好型人格的背后，藏着的是一个从未被好好回应过的孩子。他们用尽全力去满足别人，却忘了问问自己：你也值得被爱吗？</div>
+        <div class="article-date">2026-03-30 · 王琳老师</div>
+      </div>
+      <div class="article-arrow">›</div>
+    </div>
+    <div class="article-card" onclick="location.href='articles.html'">
+      <div class="article-icon">💕</div>
+      <div class="article-content">
+        <div class="article-tag love">婚恋心理</div>
+        <div class="article-title">依恋风格决定了你和谁在一起会幸福</div>
+        <div class="article-excerpt">安全型、焦虑型、回避型——三种依恋风格，三种完全不同的亲密关系体验。了解自己的依恋风格，是改善关系的第一步。</div>
+        <div class="article-date">2026-03-29 · 王琳老师</div>
+      </div>
+      <div class="article-arrow">›</div>
+    </div>
+    <div class="article-card" onclick="location.href='articles.html'">
+      <div class="article-icon">🏠</div>
+      <div class="article-content">
+        <div class="article-tag family">原生家庭</div>
+        <div class="article-title">原生家庭欠你的，你要自己找回来</div>
+        <div class="article-excerpt">原生家庭的影响是真实的，但它不是你的宿命。你已经长大了，有能力从过去的创伤中走出来，创造属于自己的幸福。</div>
+        <div class="article-date">2026-03-28 · 王琳老师</div>
+      </div>
+      <div class="article-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  来访者心声                                -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>他们的<span>改变故事</span></h2>
+    <p>真实反馈，已获本人授权分享（均已脱敏）</p>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="testimonial-card">
+      <div class="testimonial-text">"王琳老师让我第一次感受到被真正理解，在最无助的时候给了我很专业的支持和建议。咨询中学会了用新的视角看待自己的情绪。半年时间，我感觉自己真的在成长。"</div>
+      <div class="testimonial-author">⭐⭐⭐⭐⭐ &nbsp; 来访者 L · 婚恋情感咨询</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-text">"第一次咨询其实挺紧张的，但老师很温和，让我感觉很安全。现在每周都期待咨询时间，感觉有人在真正陪伴我成长。"</div>
+      <div class="testimonial-author">⭐⭐⭐⭐⭐ &nbsp; 来访者 M · 自我成长咨询</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  常见问题                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">
+    <h2>常见<span>疑问解答</span></h2>
+    <p>点击查看你想了解的内容</p>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item" onclick="location.href='articles.html'">
+      <div class="faq-icon">💭</div>
+      <div class="faq-label">心理咨询是什么</div>
+    </div>
+    <div class="faq-item" onclick="window.scrollTo({top:document.querySelector('#pricing .section-title').getBoundingClientRect().top+window.scrollY-100,behavior:'smooth'})">
+      <div class="faq-icon">💰</div>
+      <div class="faq-label">费用说明</div>
+    </div>
+    <div class="faq-item" onclick="location.href='intake.html'">
+      <div class="faq-icon">📋</div>
+      <div class="faq-label">如何预约</div>
+    </div>
+    <div class="faq-item" onclick="location.href='privacy.html'">
+      <div class="faq-icon">🔒</div>
+      <div class="faq-label">隐私保护</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  法律声明 & 底部                           -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="legal">
+  <p>本服务由<span style="color:var(--primary);font-weight:600">济南茉莉心理工作室</span>提供，属于商业心理咨询服务</p>
+  <p>不属于医疗服务，不替代精神科诊疗或药物治疗</p>
+  <p>本服务仅面向<span style="font-weight:600">18周岁及以上</span>成年来访者</p>
+  <p style="margin-top:8px">预约即表示同意 <a href="privacy.html">隐私政策</a> · © 2026 茉莉心理咨询工作室</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  悬浮预约按钮                              -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="float-cta" id="floatCta" onclick="location.href='intake.html'">🌸 一键预约</div>
+<script>
+window.addEventListener('scroll',function(){
+  document.getElementById('floatCta').style.display=window.scrollY>180?'block':'none';
+});
+</script>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  底部导航                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="bottom-bar">
+  <div class="tab-item active" onclick="switchTab(0)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9.5L12 4l9 5.5v9.5a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      <path d="M9 21V12h6v9"/>
+    </svg>
+    <span>首页</span>
+  </div>
+  <div class="tab-item" onclick="location.href='intake.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="17" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+    </svg>
+    <span>预约</span>
+  </div>
+  <div class="tab-item" onclick="location.href='assessment-new.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4l3 3"/>
+    </svg>
+    <span>测评</span>
+  </div>
+  <div class="tab-item" onclick="location.href='articles.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+    </svg>
+    <span>资讯</span>
+  </div>
+  <div class="tab-item" onclick="location.href='team.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    <span>我的</span>
+  </div>
+</div>
+
+<script>
+// 底部导航高亮
+function switchTab(idx){
+  // 单页应用模式，此处无多页面逻辑，保持首页
+}
+
+// ── Banner 轮播 ─────────────────────────────────────
+(function(){
+  var slides = document.getElementById('heroSlides');
+  var dots = document.getElementById('heroDots').children;
+  var current = 0;
+  var total = dots.length;
+  var autoTimer;
+
+  function goSlide(n){
+    current = (n + total) % total;
+    slides.style.transform = 'translateX(-' + current + '00%)';
+    for(var i=0;i<dots.length;i++){
+      dots[i].classList.toggle('active', i===current);
+    }
+  }
+
+  function nextSlide(){ goSlide(current + 1); }
+
+  function startAuto(){
+    autoTimer = setInterval(nextSlide, 4000);
+  }
+
+  function stopAuto(){
+    clearInterval(autoTimer);
+  }
+
+  // 点击 dot 切换
+  window.goSlide = goSlide;
+
+  // 触摸支持
+  var startX = 0;
+  slides.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    stopAuto();
+  }, {passive:true});
+  slides.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 50){
+      dx < 0 ? goSlide(current+1) : goSlide(current-1);
+    }
+    startAuto();
+  }, {passive:true});
+
+  startAuto();
+})();
+</script>
+</body>
+</html>

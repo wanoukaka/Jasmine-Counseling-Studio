@@ -1,0 +1,19 @@
+{
+  "name": "wechat-bridge",
+  "version": "1.0.0",
+  "description": "企业微信消息桥接服务 - 连接企业微信和卡卡",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Kaka",
+  "license": "MIT"
+}

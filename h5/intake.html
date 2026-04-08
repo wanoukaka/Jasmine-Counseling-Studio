@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理咨询初始评估问卷</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--primary:#7c6af7;--bg:#f5f3ff;--white:#fff;--text:#1a1a2e;--muted:#8b8b9e;--border:#e8e4ff;--success:#22c55e;--danger:#ef4444;--warn:#f59e0b}
+  body{background:var(--bg);color:var(--text);font-family:'PingFang SC',sans-serif;font-size:15px;min-height:100vh}
+  .header{background:var(--white);padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+  .header h1{font-size:16px;font-weight:700;color:var(--primary)}
+  .header p{font-size:12px;color:var(--muted);margin-top:2px}
+  .page{padding:16px;padding-bottom:80px}
+  .progress-bar{background:var(--bg);border-radius:10px;height:8px;margin:16px 0;overflow:hidden}
+  .progress-fill{height:100%;background:var(--primary);border-radius:10px;transition:width .4s;width:0%}
+  .section{margin-bottom:20px}
+  .section-title{font-size:14px;font-weight:600;color:var(--primary);margin-bottom:14px;padding-left:10px;border-left:3px solid var(--primary)}
+  .card{background:var(--white);border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid var(--border)}
+  .form-group{margin-bottom:14px}
+  .form-group label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  .form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 13px;background:var(--bg);border:1.5px solid transparent;border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border .2s}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--primary);background:var(--white)}
+  .form-group textarea{resize:vertical;min-height:80px}
+  .radio-group{display:flex;flex-wrap:wrap;gap:8px}
+  .radio-chip{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);font-size:13px;cursor:pointer;transition:all .2s;background:var(--white)}
+  .radio-chip input{display:none}
+  .radio-chip.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-primary:hover{opacity:.85}
+  .btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:100;transition:transform .3s;white-space:nowrap}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast.success{background:var(--success)}
+  .toast.error{background:var(--danger)}
+  .remark{font-size:12px;color:var(--muted);margin-top:4px;padding-left:2px}
+  .required{color:var(--danger)}
+  .nav-btns{display:flex;gap:10px;margin-top:20px}
+  .info-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .label{color:var(--muted)}
+  .success-page{text-align:center;padding:60px 20px}
+  .success-page .icon{font-size:64px;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<div class="header" style="display:flex;align-items:center;gap:10px;">
+  <img src="images/logo.jpg" loading="lazy" alt="茉莉心理" style="width:32px;height:32px;border-radius:7px;object-fit:cover;flex-shrink:0;cursor:pointer;" onclick="location.href='index.html'">
+  <div style="flex:1;">
+    <h1 style="font-size:15px;display:inline;">📋 初始评估问卷</h1>
+    <p style="font-size:11px;color:#b91c1c;margin-top:2px;">以下所有问题均为必填，咨询师会严格保密，请您认真并诚实填写。</p>
+  </div>
+</div>
+<div class="progress-bar" style="margin:0;"><div class="progress-fill" id="progress"></div></div>
+
+<form id="intakeForm" class="page">
+
+  <!-- 知情同意入口（表单先显示此模块） -->
+  <div id="consentGate">
+    <div style="padding:16px 16px 8px;">
+      <div style="background:#f5f3ff;border:1.5px solid #e8e4ff;border-radius:14px;padding:16px;margin-bottom:16px;">
+        <p style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:10px;">📋 心理咨询知情同意书</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:10px;">
+          欢迎您选择济南茉莉心理工作室。在正式开始咨询前，请您仔细阅读以下内容：
+        </p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">1. 本服务由济南茉莉心理工作室提供，属于商业心理咨询，不属于医疗服务，不替代精神科诊疗或药物治疗</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">2. 您在咨询中分享的所有信息严格保密，未经您的同意不会向第三方披露（保密例外情形请见隐私政策）</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">3. 如需取消或改期，请提前<span style="color:var(--primary);font-weight:600;">12小时</span>通知；未提前通知的费用不予退还</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:6px;">4. 本服务仅面向18周岁及以上成年来访者</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.8;">5. 咨询师有权对不适合本服务的个案协助转介</p>
+      </div>
+      <div class="form-group">
+        <label>本人姓名（签字确认）<span style="color:#ef4444;">*</span></label>
+        <input type="text" id="consentName" placeholder="请输入本人真实姓名" maxlength="20" required>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.6;">
+          <input type="checkbox" id="agreeConsentTop" style="accent-color:var(--primary);margin-top:3px;flex-shrink:0;">
+          <span>我已阅读并充分理解上述全部内容，同意接受咨询服务，并确认本人为具有完全民事行为能力的成年人。</span>
+        </label>
+      </div>
+      <button type="button" id="startFormBtn" onclick="openConsentGate()" disabled
+        style="width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:not-allowed;opacity:0.5;">
+        确认并开始填写 →
+      </button>
+      <p style="text-align:center;margin-top:10px;font-size:11px;color:var(--muted);">
+        <a href="privacy.html" style="color:var(--primary);">阅读完整隐私政策</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- 问卷主体（知情同意后显示） -->
+  <div id="formBody" style="display:none;">
+    <div style="padding:10px 16px 0;font-size:12px;color:var(--muted);text-align:center;margin-bottom:4px;">
+      <span style="color:var(--primary);font-weight:600;">✔ 已签署知情同意书</span> · 请继续填写以下信息
+    </div>
+
+  <!-- 来源追踪（自动生成）-->
+  <div class="info-row" id="auto-info">
+    <div><span class="label">序号：</span><span id="serial-no">加载中…</span></div>
+    <div><span class="label">来源渠道I：</span><span id="source-display">—</span></div>
+  </div>
+
+  <!-- 第一部分：基本信息 -->
+  <div class="section">
+    <div class="section-title">一、基本信息</div>
+    <div class="card">
+      <div class="form-group">
+        <label>来源渠道</label>
+        <select name="source_channel" id="sourceChannelSelect" required>
+          <option value="">请选择</option>
+          <option>小红书</option><option>抖音</option><option>知乎</option>
+          <option>微信朋友圈</option><option>朋友推荐</option><option>其他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>您的姓名</label>
+        <input type="text" name="client_name" placeholder="请输入您的姓名" required>
+        <div style="margin-top:10px;">
+          <label>称谓</label>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:6px;">
+            <label class="radio-chip"><input type="radio" name="title" value="先生" required onclick="toggleTitleInput(false)">先生</label>
+            <label class="radio-chip"><input type="radio" name="title" value="女士" onclick="toggleTitleInput(false)">女士</label>
+            <label class="radio-chip"><input type="radio" name="title" value="小姐" onclick="toggleTitleInput(false)">小姐</label>
+            <label class="radio-chip" id="titleOtherChip"><input type="radio" name="title" value="custom" onclick="toggleTitleInput(true)">其他</label>
+            <input type="text" id="titleCustomInput" name="title_custom" placeholder="请填写" required style="display:none;width:100%;padding:7px 12px;background:var(--bg);border:1.5px solid transparent;border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border .2s;margin-top:6px" oninput="onTitleCustomInput(this.value)">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>性别</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="gender" value="男" required onclick="hideGenderOther()">男</label>
+          <label class="radio-chip"><input type="radio" name="gender" value="女" onclick="hideGenderOther()">女</label>
+          <label class="radio-chip"><input type="radio" name="gender" value="其他" onclick="toggleGenderOther()">其他</label><input type="text" id="gender_other" name="gender_other" placeholder="请填写" style="display:none;width:100%;padding:7px 12px;background:var(--bg);border:1.5px solid transparent;border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border .2s;margin-top:6px">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>您的手机号</label>
+        <input type="tel" name="phone" placeholder="请输入手机号" maxlength="11" required>
+      </div>
+      <div class="form-group">
+        <label>年龄</label>
+        <input type="text" name="age" placeholder="请填写您的年龄，如：28岁" required>
+      </div>
+      <div class="form-group">
+        <label>目前所在城市</label>
+        <input type="text" name="city" placeholder="如：山东省济南市" required>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第二部分：家庭背景 -->
+  <div class="section">
+    <div class="section-title">二、家庭背景</div>
+    <div class="card">
+      <div class="form-group">
+        <label>小时候由谁抚养长大？</label>
+        <input type="text" name="caregiver" placeholder="如：父母 / 爷爷奶奶 / 外公外婆 / 其他" required>
+      </div>
+      <div class="form-group">
+        <label>父母的婚姻目前是存续的吗？</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="parents_married" value="是" required>是</label>
+          <label class="radio-chip"><input type="radio" name="parents_married" value="否，已离婚">否，已离婚</label>
+          <label class="radio-chip"><input type="radio" name="parents_married" value="否，一方已故">否，一方已故</label>
+          <label class="radio-chip"><input type="radio" name="parents_married" value="分居">分居</label>
+          <label class="radio-chip"><input type="radio" name="parents_married" value="不确定">不确定</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>是否有兄弟姐妹？</label>
+        <input type="text" name="siblings" placeholder="请描述，如：有一个姐姐、一个弟弟" required>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第三部分：创伤经历 -->
+  <div class="section">
+    <div class="section-title">三、创伤经历</div>
+    <div class="card">
+      <div class="form-group">
+        <label>是否有心理创伤？</label>
+        <textarea name="childhood_trauma" rows="3" placeholder="如有，请在下方详细描述" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>身体被虐待过吗？</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="physical_abuse" value="从未" required>从未</label>
+          <label class="radio-chip"><input type="radio" name="physical_abuse" value="偶尔">偶尔</label>
+          <label class="radio-chip"><input type="radio" name="physical_abuse" value="有时">有时</label>
+          <label class="radio-chip"><input type="radio" name="physical_abuse" value="经常">经常</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>上学期间有无让你感到痛苦的经历？</label>
+        <textarea name="education_painful" rows="3" placeholder="如校园欺凌、老师不当对待、学业压力等" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第四部分：教育与工作 -->
+  <div class="section">
+    <div class="section-title">四、教育与工作</div>
+    <div class="card">
+      <div class="form-group">
+        <label>最高学历和专业？</label>
+        <input type="text" name="education" placeholder="如：本科 / 心理学" required>
+      </div>
+      <div class="form-group">
+        <label>最近一份工作是什么？至今有多久了？</label>
+        <input type="text" name="recent_job" placeholder="如：产品经理 / 3年" required>
+      </div>
+      <div class="form-group">
+        <label>工作中人际关系如何？</label>
+        <textarea name="job_relationships" rows="2" placeholder="如：一般，有几个关系不错的同事" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第五部分：健康与风险 -->
+  <div class="section">
+    <div class="section-title">五、健康与风险评估</div>
+    <div class="card" style="background:#fff5f5;border-color:#fecaca;">
+      
+      <div class="form-group">
+        <label>您是否曾经有过结束自己生命的念头？（即使永远不会）</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="suicidal_thoughts" value="从未有过" required>从未有过</label>
+          <label class="radio-chip"><input type="radio" name="suicidal_thoughts" value="偶尔有过">偶尔有</label>
+          <label class="radio-chip"><input type="radio" name="suicidal_thoughts" value="经常有">经常有</label>
+          <label class="radio-chip"><input type="radio" name="suicidal_thoughts" value="现在就有">现在有</label>
+        </div>
+        <p class="remark">如有，请备注大概时间和背景（选填）</p>
+        <input type="text" name="suicidal_detail" placeholder="选填" style="margin-top:8px;">
+      </div>
+      <div class="form-group">
+        <label>是否曾经故意伤害过自己的身体（如割伤、烧伤等）？</label>
+        <div class="radio-group">
+          <label class="radio-chip"><input type="radio" name="self_harm" value="从未" required>从未</label>
+          <label class="radio-chip"><input type="radio" name="self_harm" value="偶尔">偶尔</label>
+          <label class="radio-chip"><input type="radio" name="self_harm" value="曾经有一段时间">曾经有一段时间</label>
+          <label class="radio-chip"><input type="radio" name="self_harm" value="现在仍有">现在仍有</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>是否有看过精神科医生、治疗师或心理咨询师？（如有，诊断结果是什么）</label>
+        <textarea name="mental_health_treatment" rows="2" placeholder="如：看过2次心理咨询，无正式诊断" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>身体方面有什么疾病吗？</label>
+        <textarea name="physical_disease" rows="2" placeholder="如：无 / 高血压 / 糖尿病" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第六部分：咨询诉求 -->
+  <div class="section">
+    <div class="section-title">六、咨询诉求</div>
+    <div class="card">
+      <div class="form-group">
+        <label>您最想解决的问题是什么？</label>
+        <textarea name="chief_complaint" rows="4" placeholder="请详细描述您目前最困扰的事情…" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>如果还有特别想告诉咨询师的，请写在下方（选填）</label>
+        <textarea name="extra_notes" rows="3" placeholder="任何您觉得重要但没有问到的事情…" required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第七部分：紧急联系人 -->
+  <div class="section">
+    <div class="section-title">七、紧急联系人</div>
+    <div class="card">
+      <div class="form-group">
+        <label>紧急联系人姓名，与您的关系</label>
+        <input type="text" name="emergency_contact" placeholder="如：张三（母亲）" required>
+      </div>
+      <div class="form-group">
+        <label>紧急联系人电话</label>
+        <input type="tel" name="emergency_phone" placeholder="请输入联系电话" maxlength="11" required>
+      </div>
+    </div>
+  </div><!-- end formBody -->
+
+  <div class="nav-btns">
+    <button type="button" class="btn btn-outline" onclick="window.location.href='index.html';return false">← 返回</button>
+    <button type="submit" class="btn btn-primary" id="submitBtn">提交问卷 →</button>
+  </div></form>
+
+<!-- 提交成功 -->
+<div id="successPage" style="display:none;">
+  <div class="success-page" style="padding:40px 20px 30px;">
+    <div style="font-size:72px;margin-bottom:16px;">🌸</div>
+    <h2 style="font-size:20px;margin-bottom:8px;color:var(--primary);">登记完成！</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:24px;">感谢您的信任，接下来可以帮助我们更好地了解您</p>
+
+    <!-- 完善初始评估（核心问卷）-->
+    <div style="background:linear-gradient(135deg,#7c6af7,#9b7bff);border-radius:14px;padding:20px;margin:0 0 14px;color:#fff;text-align:left;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:8px;">📋 完成初始评估问卷</div>
+      <div style="font-size:12px;opacity:0.9;line-height:1.7;margin-bottom:14px;">这是最重要的评估问卷，会帮助王琳咨询师全面了解您的情况，让第一次访谈更有针对性。</div>
+      <a id="assessmentLink" href="assessment.html" style="display:block;background:#fff;color:#7c6af7;text-align:center;padding:11px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;">开始填写初始评估 →</a>
+    </div>
+
+    <!-- 量表引导 -->
+    <div style="background:#fff;border-radius:14px;padding:18px;margin:0 0 14px;text-align:left;border:1px solid var(--border);">
+      <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px;">🧠 推荐量表（可选）</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">完成初始评估后，您可以根据自己的情况选择填写以下专业量表，获取更精准的参考报告。</div>
+      <a href="assessment.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);font-size:13px;">
+        <span>😰</span><span style="flex:1;">焦虑自评量表（SAS）</span><span style="color:var(--muted);font-size:12px;">3-5分钟 →</span>
+      </a>
+      <a href="assessment.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);font-size:13px;">
+        <span>😔</span><span style="flex:1;">抑郁自评量表（SDS）</span><span style="color:var(--muted);font-size:12px;">3-5分钟 →</span>
+      </a>
+      <a href="assessment.html" style="display:flex;align-items:center;gap:10px;padding:10px 0;text-decoration:none;color:var(--text);font-size:13px;">
+        <span>🌡️</span><span style="flex:1;">心理健康综合评估（SCL-90）</span><span style="color:var(--muted);font-size:12px;">15分钟 →</span>
+      </a>
+    </div>
+
+    <!-- 已有client_id时：展示专属追踪码 -->
+    <div id="clientTrackSection" style="display:none;background:#f5f3ff;border-radius:14px;padding:14px;margin:0 0 14px;text-align:center;border:1px solid var(--border);">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">您的专属咨询编号</div>
+      <div id="clientTrackCode" style="font-size:18px;font-weight:700;color:var(--primary);letter-spacing:2px;"></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">下次联系时请告知此编号，方便我们更快找到您的资料</div>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:20px;margin:0 0 20px;text-align:left;border:1px solid var(--border);">
+      <div style="font-size:13px;font-weight:600;color:var(--primary);margin-bottom:12px;">📋 接下来会发生什么</div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <span style="background:var(--primary);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">1</span>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;">王琳咨询师会在 <strong>24小时内</strong>阅读您的问卷并与您联系</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <span style="background:var(--primary);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">2</span>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;">确认预约后，会议链接和密码将<strong>短信发送</strong>给您</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <span style="background:var(--primary);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">3</span>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;">视频咨询建议在<strong>安静、私密</strong>的环境中进行</div>
+      </div>
+    </div>
+
+    <div style="background:#fff5f5;border-radius:14px;padding:16px;margin:0 0 20px;text-align:left;border:1px solid #fecaca;">
+      <div style="font-size:13px;font-weight:600;color:#b91c1c;margin-bottom:8px;">💡 咨询前的小建议</div>
+      <div style="font-size:12px;color:#7f1d1d;line-height:1.7;">
+        • 可以提前想想希望通过咨询获得什么<br>
+        • 找一个网络稳定、不会被打扰的地方<br>
+        • 第一次访谈通常会围绕您的诉求展开，慢慢来就好 😊
+      </div>
+    </div>
+
+    <div style="background:#f0fdf4;border-radius:14px;padding:16px;margin:0 0 24px;text-align:left;border:1px solid #bbf7d0;">
+      <div style="font-size:12px;color:#166534;line-height:1.7;">
+        <strong>📞 如有紧急情况</strong>，请拨打：<br>
+        <strong>全国24小时免费危机干预热线：12356</strong>（成人）<br>
+        
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="window.location.href='index.html';return false" style="max-width:260px;margin:0 auto;">返回首页</button>
+  </div>
+</div>
+
+
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = localStorage.getItem('jasmine_api') || window.API_BASE || 'http://localhost:3001'
+
+// 来源渠道：问卷前的入口
+const urlParams = new URLSearchParams(location.search)
+const sourceFrom = urlParams.get('from') || localStorage.getItem('jasmine_channel') || ''
+
+// 自动填充追踪信息
+const now = new Date()
+const serialNo = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}-${String(Math.floor(Math.random()*900+100))}`
+document.getElementById('serial-no').textContent = serialNo
+
+// 获取用户IP（静默）
+fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
+  document.getElementById('auto-info').innerHTML += `<div><span class="label">IP：</span><span>${d.ip || '—'}</span></div>`
+  document.getElementById('auto-info').innerHTML += `<div><span class="label">填写时间：</span><span>${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}</span></div>`
+}).catch(() => {
+  document.getElementById('auto-info').innerHTML += `<div><span class="label">IP：</span><span>—</span></div><div><span class="label">填写时间：</span><span>${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}</span></div>`
+})
+
+// 如果有渠道参数，自动选中
+if (sourceFrom) {
+  document.getElementById('sourceChannelSelect').value = sourceFrom
+  document.getElementById('source-display').textContent = sourceFrom
+}
+
+// 选中来源渠道后同步显示
+document.getElementById('sourceChannelSelect').addEventListener('change', function() {
+  document.getElementById('source-display').textContent = this.value || '—'
+})
+
+// 进度条
+const sections = document.querySelectorAll('.section')
+const total = sections.length
+function updateProgress() {
+  const filled = [...document.querySelectorAll('input,select,textarea')].filter(el => {
+    return el.value.trim() !== '' && el.type !== 'hidden' && el.name !== ''
+  }).length
+  const total2 = [...document.querySelectorAll('input,select,textarea')].filter(el => el.type !== 'hidden' && el.name !== '').length
+  const pct = total2 > 0 ? Math.round(filled / total2 * 100) : 0
+  document.getElementById('progress').style.width = pct + '%'
+}
+document.querySelectorAll('input,select,textarea').forEach(el => {
+  el.addEventListener('input', updateProgress)
+  el.addEventListener('change', updateProgress)
+})
+
+// 知情同意门：姓名+勾选后解锁开始按钮
+function checkConsentBtn() {
+  const name = document.getElementById('consentName').value.trim()
+  const checked = document.getElementById('agreeConsentTop').checked
+  const btn = document.getElementById('startFormBtn')
+  if (name && checked) {
+    btn.disabled = false
+    btn.style.opacity = '1'
+    btn.style.cursor = 'pointer'
+  } else {
+    btn.disabled = true
+    btn.style.opacity = '0.5'
+    btn.style.cursor = 'not-allowed'
+  }
+}
+document.getElementById('consentName').addEventListener('input', checkConsentBtn)
+document.getElementById('agreeConsentTop').addEventListener('change', checkConsentBtn)
+
+// 知情同意门通过：显示问卷主体
+function openConsentGate() {
+  const name = document.getElementById('consentName').value.trim()
+  const checked = document.getElementById('agreeConsentTop').checked
+  if (!name || !checked) { toast('请填写姓名并勾选同意', 'error'); return }
+  document.getElementById('consentGate').style.display = 'none'
+  document.getElementById('formBody').style.display = 'block'
+  // 把姓名填入表单第一个字段（隐藏或预填）
+  const nameInput = document.querySelector('input[name="client_name"]')
+  if (nameInput) nameInput.value = name
+}
+
+// Radio chip 交互
+document.querySelectorAll('.radio-chip input').forEach(input => {
+  input.addEventListener('change', () => {
+    const name = input.name
+    document.querySelectorAll(`input[name="${name}"]`).forEach(i => {
+      i.closest('.radio-chip').classList.toggle('selected', i.checked)
+    })
+    updateProgress()
+  })
+})
+
+// 表单提交
+document.getElementById('intakeForm').addEventListener('submit', async e => {
+  e.preventDefault()
+  const btn = document.getElementById('submitBtn')
+  btn.disabled = true
+  btn.textContent = '提交中…'
+
+  const fd = new FormData(e.target)
+  const data = Object.fromEntries(fd.entries())
+
+  // 来源
+  data.source_channel = data.source_channel || sourceFrom || '其他'
+
+  // 先用手机号查找或创建来访者
+  if (!data.phone) { toast('请填写手机号', 'error'); btn.disabled=false; btn.textContent='提交问卷 →'; return }
+
+  try {
+    const clientRes = await fetch(API + '/api/clients', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: data.client_name || data.phone,
+        phone: data.phone,
+        gender: data.gender,
+        age: data.age,
+        city: data.city,
+        source: data.source_channel,
+        tags: [data.chief_complaint?.slice(0,50) || '初始评估'].filter(Boolean),
+        emergency_name: data.emergency_contact,
+        emergency_phone: data.emergency_phone,
+      })
+    }).then(r => r.json())
+
+    const clientId = clientRes.data?.id || clientRes.data?.client_id
+    if (!clientId) throw new Error('创建来访者失败')
+
+    // 提交初始评估问卷
+    const intakeRes = await fetch(API + '/api/intake', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        client_id: clientId,
+        consultant_id: 'default',
+        ...data
+      })
+    }).then(r => r.json())
+
+    document.getElementById('intakeForm').style.display = 'none'
+    document.querySelector('.header').style.display = 'none'
+    document.getElementById('successPage').style.display = 'block'
+    localStorage.setItem('jasmine_client_id', clientId)
+
+    // 显示来访者追踪编号
+    const trackCode = clientId.slice(-6).toUpperCase()
+    document.getElementById('clientTrackCode').textContent = trackCode
+    document.getElementById('clientTrackSection').style.display = 'block'
+    // 问卷链接带上client_id，方便后续关联
+    const base = location.origin + location.pathname.replace('intake.html', '')
+    const assessmentLink = base + 'assessment.html?client_id=' + clientId
+    document.getElementById('assessmentLink').href = assessmentLink
+
+  } catch(err) {
+    toast('提交失败，请稍后重试', 'error')
+    btn.disabled = false
+    btn.textContent = '提交问卷 →'
+  }
+})
+
+function toggleTitleInput(show) {
+  const chip = document.getElementById('titleOtherChip')
+  const input = document.getElementById('titleCustomInput')
+  if (show) {
+    chip.classList.add('selected')
+    input.style.display = 'block'
+    input.focus()
+  } else {
+    chip.classList.remove('selected')
+    input.style.display = 'none'
+  }
+}
+
+function onTitleCustomInput(val) {
+  // 如果填写了自定义称谓，自动选上"其他"
+  if (val.trim()) {
+    document.querySelectorAll('input[name="title"]').forEach(i => i.value = '')
+    document.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('selected'))
+    document.getElementById('titleOtherChip').classList.add('selected')
+  }
+}
+
+function toast(msg, type='') {
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.className = 'toast show' + (type ? ' ' + type : '')
+  setTimeout(() => t.classList.remove('show'), 3000)
+}
+</script>
+<script>
+function toggleGenderOther(){
+  var input = document.getElementById('gender_other');
+  var radios = document.getElementsByName('gender');
+  for(var i=0;i<radios.length;i++){
+    if(radios[i].value==='其他' && radios[i].checked){
+      input.style.display='block';
+      input.required=true;
+      return;
+    }
+  }
+  input.style.display='none';
+  input.required=false;
+}
+function hideGenderOther(){
+  var input = document.getElementById('gender_other');
+  input.style.display='none';
+  input.required=false;
+}
+</script>
+</body>
+</html>

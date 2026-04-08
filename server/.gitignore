@@ -1,0 +1,21 @@
+# pm2 binaries
+node_modules/.bin/pm2*
+node_modules/.bin/systeminformation
+node_modules/.bin/blessed
+node_modules/.bin/escodegen
+node_modules/.bin/esgenerate
+node_modules/.bin/esparse
+node_modules/.bin/esvalidate
+node_modules/.bin/js-yaml
+node_modules/.bin/mkdirp
+node_modules/.bin/needle
+node_modules/.bin/resolve
+
+# pm2 runtime files
+dump.pm2
+.pm2/
+*.log
+
+# Database files (local only, never commit)
+*.db
+*.db-journal

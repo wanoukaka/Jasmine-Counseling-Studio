@@ -1,0 +1,26 @@
+{
+  "name": "jasmine-counseling-studio-server",
+  "version": "1.0.0",
+  "description": "Jasmine Counseling Studio 后端服务 - 心理咨询管理系统",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "init-db": "node db/init.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.0",
+    "@fastify/multipart": "^8.1.0",
+    "axios": "^1.6.0",
+    "cors": "^2.8.6",
+    "dayjs": "^1.11.10",
+    "express": "^5.2.1",
+    "fastify": "^4.26.0",
+    "nanoid": "^5.0.0",
+    "sql.js": "^1.10.0"
+  },
+  "devDependencies": {
+    "pm2": "^6.0.14"
+  }
+}

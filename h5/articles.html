@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="茉莉心理每日更新心理学资讯、婚恋情感文章、情感疏导方法，助您了解心理健康知识，提升情感质量">
+<meta name="keywords" content="心理学,婚恋情感,心理咨询,情感文章,心理健康,情感疏导,心理学资讯">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="心理资讯 · 茉莉心理">
+<meta property="og:description" content="每日更新心理学资讯、婚恋情感文章">
+<title>心理资讯 · 茉莉心理</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--primary:#7c6af7;--primary-light:#a89bfa;--bg:#f5f3ff;--white:#ffffff;--text:#1a1a2e;--muted:#8b8b9e;--border:#e8e4ff;--success:#22c55e;--danger:#ef4444;--warning:#f59e0b;--green-light:#dcfce7}
+  body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:15px;min-height:100vh}
+  .header{background:var(--white);padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;}
+  .back-btn{font-size:20px;color:var(--primary);cursor:pointer;flex-shrink:0;}
+  .header h1{font-size:15px;font-weight:700;color:var(--primary);flex:1;}
+  .page{padding:16px;padding-bottom:80px}
+
+  /* 分类标签 */
+  .filter-bar{display:flex;gap:8px;overflow-x:auto;padding:0 16px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .filter-bar::-webkit-scrollbar{display:none;}
+  .filter-tag{padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;background:var(--white);color:var(--muted);border:1.5px solid var(--border);transition:all .2s;flex-shrink:0;}
+  .filter-tag.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+  /* 文章卡片 */
+  .article-card{background:var(--white);border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid var(--border);cursor:pointer;transition:transform .15s;position:relative;}
+  .article-card:active{transform:scale(.98);}
+  .article-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+  .article-tag{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;}
+  .article-tag.tag-emotion{background:#fdf2f8;color:#be185d;}
+  .article-tag.tag-love{background:#fef3c7;color:#92400e;}
+  .article-tag.tag-family{background:#dbeafe;color:#1e40af;}
+  .article-tag.tag-growth{background:#d1fae5;color:#065f46;}
+
+  /* 徽章 */
+  .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;flex-shrink:0;}
+  .badge-today{background:#fef3c7;color:#92400e;}
+  .badge-featured{background:var(--primary);color:#fff;}
+
+  .article-date{font-size:11px;color:var(--muted);}
+  .article-title{font-size:15px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:8px;}
+  .article-excerpt{font-size:13px;color:var(--muted);line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .article-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);}
+  .article-author{font-size:12px;color:var(--muted);}
+  .read-more{font-size:12px;color:var(--primary);font-weight:600;}
+
+  /* 今日推荐大卡片 */
+  .featured-card{background:linear-gradient(135deg,#7c6af7 0%,#a89bfa 100%);border-radius:16px;padding:20px;margin:0 16px 16px;color:#fff;cursor:pointer;transition:transform .15s;}
+  .featured-card:active{transform:scale(.97);}
+  .featured-label{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  .featured-title{font-size:17px;font-weight:800;line-height:1.4;margin-bottom:8px;}
+  .featured-excerpt{font-size:13px;opacity:0.88;line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .featured-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:12px;opacity:0.8;}
+
+  /* 文章详情 */
+  .article-detail{display:none;}
+  .article-detail.active{display:block;}
+  .detail-header{background:var(--white);border-radius:14px;padding:20px;margin-bottom:12px;border:1px solid var(--border);}
+  .detail-tag-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+  .detail-title{font-size:18px;font-weight:800;color:var(--text);line-height:1.5;margin-bottom:12px;}
+  .detail-meta{font-size:12px;color:var(--muted);}
+  .detail-body{background:var(--white);border-radius:14px;padding:20px;border:1px solid var(--border);font-size:14px;color:var(--text);line-height:2;}
+  .detail-body p{margin-bottom:16px;}
+  .detail-body .highlight{background:#f5f3ff;padding:12px 14px;border-radius:10px;border-left:3px solid var(--primary);margin:16px 0;}
+  .detail-body .quote{font-size:16px;color:var(--primary);font-weight:700;line-height:1.8;}
+  .back-detail{background:var(--white);border-radius:14px;padding:12px;border:1px solid var(--border);text-align:center;font-size:14px;font-weight:600;color:var(--primary);cursor:pointer;margin-top:16px;}
+
+  .empty-state{text-align:center;padding:40px 20px;color:var(--muted);}
+  .empty-state .emoji{font-size:48px;margin-bottom:12px;}
+  .empty-state p{font-size:13px;}
+
+  /* 骨架屏 */
+  .skeleton-card{background:var(--white);border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid var(--border);}
+  .skeleton-line{background:linear-gradient(90deg,#f0eeff 25%,#e8e4ff 50%,#f0eeff 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px;margin-bottom:10px;}
+  .skeleton-line.short{width:40%;height:12px;}
+  .skeleton-line.medium{width:65%;height:15px;}
+  .skeleton-line.long{width:90%;height:15px;}
+  .skeleton-line.block{width:100%;height:60px;}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* 更新提示 */
+  .update-hint{text-align:center;font-size:11px;color:var(--muted);padding:4px 0 10px;}
+
+  /* 底部导航 */
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);display:flex;z-index:20;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(124,106,247,0.08);}
+  .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--muted);font-size:10px;transition:all .2s;padding:4px 0;}
+  .tab-item.active{color:var(--primary);font-weight:600;}
+  .tab-item svg{width:22px;height:22px;}
+</style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="header">
+  <div class="back-btn" onclick="location.href='index.html'">←</div>
+  <h1>🌸 心理资讯</h1>
+</div>
+
+<!-- 列表视图 -->
+<div id="articleList">
+  <!-- 分类标签 -->
+  <div class="filter-bar">
+    <div class="filter-tag active" data-cat="all">全部</div>
+    <div class="filter-tag" data-cat="emotion">💗 情绪管理</div>
+    <div class="filter-tag" data-cat="love">💕 婚恋心理</div>
+    <div class="filter-tag" data-cat="family">🏠 原生家庭</div>
+    <div class="filter-tag" data-cat="growth">🌱 自我成长</div>
+  </div>
+  <div class="page">
+    <!-- 今日推荐大卡片 -->
+    <div id="featuredContainer"></div>
+    <!-- 更新提示 -->
+    <div class="update-hint" id="updateHint"></div>
+    <!-- 文章列表 -->
+    <div id="articleContainer"></div>
+  </div>
+</div>
+
+<!-- 详情视图 -->
+<div id="articleDetail" class="article-detail page"></div>
+
+<script src="config.js"></script>
+<script>
+let currentCat = 'all';
+let allArticles = [];
+let featuredArticle = null;
+let articlesData = null;
+
+// ── 文章数据（每日自动更新脚本写入，无需手动维护）──
+var ARTICLES_JSON = {"last_updated": "2026-04-03", "daily_featured_id": 1, "articles": [{"id": 1, "cat": "love", "tag": "婚恋心理", "tagClass": "tag-love", "title": "爱的密码：让婚姻更加美满的秘方", "date": "2026-04-03", "author": "王琳老师", "isFeatured": true, "excerpt": "婚姻并非一成不变，双方通过不断沟通和调整，可以建立起更深厚的情感连接。", "content": "<p>婚姻生活中的冲突和挑战是常态，然而，通过有效的沟通技巧与心理调适，我们可以克服这些困难。<strong>倾听与尊重</strong>不仅能增进彼此的理解，还能让双方感受到被重视。</p>\n<div class=\"highlight\">婚姻中的每一个小细节都值得我们去珍惜，因为它们共同构建了家的温馨氛围。</div>\n<p>在一段关系中，相互成长是最重要的。通过努力提升自我，不仅能更好地适应对方的需求，还能促进双方情感的深化。记住，<strong>每一段婚姻都需要经营与维护，才能绽放出最美丽的花朵。</strong></p>"}, {"id": 2, "cat": "emotion", "tag": "情绪管理", "tagClass": "tag-emotion", "title": "情绪管理：打造和谐幸福的亲密关系", "date": "2026-04-03", "author": "王琳老师", "isFeatured": false, "excerpt": "学会情绪管理，不仅能提升个人幸福感，还能促进亲密关系的和谐稳定。", "content": "<p>在婚恋或亲密关系中，情绪管理是一项重要的技能。我们经常会遇到一些令人生气或沮丧的情况，如何在这样的时刻保持冷静和理智，成为了关系健康的关键。</p><div class=\"highlight\">掌握情绪管理的技巧，可以有效避免不必要的争执和矛盾。</div><p>学会倾听对方的感受，共情对方的需求，是建立亲密关系的桥梁。通过积极的沟通和相互理解，双方才能走得更远，更加稳固。</p><p><strong>记住：</strong>情绪如同天气，无需逃避，要学会用正确的方式去面对和解决。</p>"}, {"id": 3, "cat": "family", "tag": "原生家庭", "tagClass": "tag-family", "title": "探索原生家庭，理解情感基石", "date": "2026-04-03", "author": "王琳老师", "isFeatured": false, "excerpt": "原生家庭是情感的起点，探究它，能更好地理解自己和他人的亲密关系。", "content": "<p>原生家庭，是我们情感世界的起点，塑造着我们如何看待世界、如何与他人建立连接。<div class=\"highlight\">了解原生家庭，就像是追溯生命之河的源头，帮助我们理解内心的波澜。</div>在亲密关系中，我们常常会遇到与伴侣意见不合的情况，这时，理解彼此原生家庭的差异和影响，便显得尤为重要。自我成长离不开对原生家庭的认识，它如同一面镜子，反射出我们内心深处的渴望与不安。</p><p>当我们深入探索原生家庭，不仅能够更好地理解自己，还能学会如何在亲密关系中避免过去的消极模式，走向更健康的关系。</p><p><strong>金句：</strong>原生家庭的影子虽深远，但通过理解与成长，我们可以书写一个全新的自我。</p>"}, {"id": 4, "cat": "growth", "tag": "自我成长", "tagClass": "tag-growth", "title": "培养情感智慧，让爱情常青", "date": "2026-04-03", "author": "王琳老师", "isFeatured": false, "excerpt": "情感智慧助你在爱情中更加成熟，学会沟通与倾听，让亲密关系更加稳固。", "content": "<p>在婚姻和恋爱中，情感智慧是我们必不可少的技能。它包括掌握有效的沟通方式，以及培养共情能力。当你能够以开放的心态倾听伴侣的想法和感受，你们的关系将会更加紧密和稳定。（<div class=\"highlight\">共情能力是情感智慧的关键成分。</div>）</p>\n<p>学会表达自己的需求也很重要。通过坦诚而富有同情心的方式，你会发现伴侣更容易理解你，从而增进理解和信任。这不仅能够解决当前的问题，还能预防未来可能出现的冲突。（<p class=\"quote\">沟通如同桥梁，搭起你我心灵的连接。</p>）</p>"}, {"id": 5, "cat": "love", "tag": "婚恋心理", "tagClass": "tag-love", "title": "依恋风格决定了你和谁在一起会幸福", "date": "2026-03-29", "author": "王琳老师", "isFeatured": false, "excerpt": "安全型、焦虑型、回避型——三种依恋风格，三种完全不同的亲密关系体验。了解自己的依恋风格，是改善关系的第一步。", "content": "<p>在亲密关系中，你是否有过这样的困惑：明明很爱对方，却总是感到不安；或者明明想靠近，却总是不自觉地想逃离？</p><p>这可能与你的<strong>依恋风格</strong>有关。</p><div class=\"highlight\">依恋风格形成于婴幼儿时期与主要照顾者的互动，并持续影响成年后的亲密关系模式。主要分为三种：安全型、焦虑型、回避型。</div><p><strong>安全型依恋</strong>的人，能够自在地依赖对方，也能够享受独立。</p><p><strong>焦虑型依恋</strong>的人，常常担心对方不够爱自己，容易患得患失。</p><p><strong>回避型依恋</strong>的人，习惯了保持距离，不善于表达情感需求。</p><p class=\"quote\">\"了解自己的依恋风格，是打破关系困境的第一步。\"</p>"}, {"id": 6, "cat": "family", "tag": "原生家庭", "tagClass": "tag-family", "title": "原生家庭欠你的，你要自己找回来", "date": "2026-03-28", "author": "王琳老师", "isFeatured": false, "excerpt": "原生家庭的影响是真实的，但它不是你的宿命。你已经长大了，有能力从过去的创伤中走出来，创造属于自己的幸福。", "content": "<p>很多人来找我咨询，开口第一句话就是：\"我觉得我的问题都来自我的原生家庭。\"</p><p>原生家庭确实塑造了我们的核心信念和行为模式。</p><div class=\"highlight\">但原生家庭影响你，不是为了定义你，而是让你理解：你为什么会成为现在的自己。理解是改变的开始，不是终点。</div><p>举个例子：如果小时候父母经常忽视你的感受，你可能学会了压抑自己的需求。</p><p class=\"quote\">\"父母也是第一次做父母，他们给了他们所能给的最好的一切。但这不意味着那些伤害就是对的。\"</p><p>疗愈原生家庭创伤的关键，是<strong>看见那个小时候受伤的自己，给他/她一个拥抱</strong>。</p>"}, {"id": 7, "cat": "emotion", "tag": "情绪管理", "tagClass": "tag-emotion", "title": "焦虑的本质：是对未来不确定性的恐惧", "date": "2026-03-27", "author": "王琳老师", "isFeatured": false, "excerpt": "焦虑不是你的敌人，它是你的信使。每一次焦虑的背后，都有一个未被满足的需求。学会倾听它，而不是压抑它。", "content": "<p>你是不是经常这样：脑子里总是停不下来，担心各种还没发生的事——担心明天的会议、担心孩子的成绩、担心未来的人生方向……</p><p>这就是焦虑。</p><div class=\"highlight\">焦虑的本质，是大脑在试图保护你。它把未来所有可能的危险都提前演练了一遍，告诉你：小心，要做好准备。但问题是，它有时候太\"尽职\"了，把很小的可能性放大成巨大的威胁。</div><p>对抗焦虑的第一步，不是强迫自己\"不要想太多\"，而是<strong>停下来，问问自己：我在焦虑什么？</strong></p><p class=\"quote\">\"焦虑的反面是具体。\"</p>"}, {"id": 8, "cat": "love", "tag": "婚恋心理", "tagClass": "tag-love", "title": "为什么越爱越孤独？谈亲密关系中的\"假性亲密\"", "date": "2026-03-26", "author": "王琳老师", "isFeatured": false, "excerpt": "两个人住在一起，却比一个人还孤独。假性亲密关系里，你们从不争吵，也从不真正靠近。", "content": "<p>有些夫妻/伴侣，从不吵架，看起来相敬如宾，但两个人之间始终隔着一层什么东西。</p><p>你说什么，他都点头；你做什么，他都不反对。但你心里知道，他从来没有真正<strong>看见</strong>过你。这就是心理学上所说的<strong>假性亲密关系</strong>。</p><div class=\"highlight\">假性亲密关系的本质，是双方都在不自觉地用\"安全距离\"来保护自己不受伤害。</div><p>打破假性亲密的关键，是<strong>敢于在关系中\"制造冲突\"</strong>。不是真的去争吵，而是试着说出那些你一直不敢说的话。</p><p class=\"quote\">\"真正的亲密，是敢于在对方面前做一个不完美的人。\"</p>"}, {"id": 9, "cat": "growth", "tag": "自我成长", "tagClass": "tag-growth", "title": "\"我不够好\"：一个骗了你很多年的信念", "date": "2026-03-25", "author": "王琳老师", "isFeatured": false, "excerpt": "\"我不够好\"可能是你内心最深处的核心信念。它像一块阴影，笼罩着你所有的努力和成就。", "content": "<p>\"我不够好\"——这句话，你对自己说了多少年？</p><p>不管你取得多少成就，不管别人给了你多少赞美，你的内心深处总有一个声音在说：你还差得远呢。</p><div class=\"highlight\">这种\"我不够好\"的信念，在心理学中叫做\"资格感缺失\"（Feeling of Inadequacy）。它不是事实，而是一种习得的思维模式。</div><p>这个信念会扭曲你的认知：成功时你会说\"只是运气好\"；被表扬时你会说\"对方只是在客气\"。</p><p class=\"quote\">\"你已经足够好了，不是因为你做了什么，而是因为你是你。\"</p><p>试着在你感到沮丧的时候，轻轻地对自己说一句：我已经足够好了。</p>"}]};
+
+// ── 骨架屏 ────────────────────────────────────────────
+function showSkeleton() {
+  document.getElementById('featuredContainer').innerHTML = `
+    <div class="skeleton-card" style="margin:0 0 16px;background:linear-gradient(135deg,#e8e4ff,#f0eeff);">
+      <div class="skeleton-line short" style="height:12px;"></div>
+      <div class="skeleton-line long" style="height:18px;margin-top:8px;"></div>
+      <div class="skeleton-line block" style="margin-top:8px;"></div>
+    </div>`;
+  document.getElementById('articleContainer').innerHTML = Array(4).fill().map(() =>
+    `<div class="skeleton-card">
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line medium"></div>
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line block"></div>
+    </div>`
+  ).join('');
+}
+
+// ── 获取文章数据（直接读取内嵌数据，file:// 也正常工作）──
+async function loadArticles() {
+  showSkeleton();
+  try {
+    articlesData = ARTICLES_JSON;
+    const today = new Date().toISOString().slice(0, 10);
+    allArticles = (articlesData.articles || []).map(a => ({
+      ...a,
+      isToday: a.date === today
+    }));
+
+    featuredArticle = allArticles.find(a => a.isToday)
+      || allArticles.find(a => a.id === articlesData.daily_featured_id)
+      || allArticles[0];
+
+    renderFeatured();
+    renderArticles(currentCat);
+
+    const hint = document.getElementById('updateHint');
+    if (articlesData.last_updated === today) {
+      hint.textContent = `✨ 今日内容已更新`;
+    } else if (articlesData.last_updated) {
+      hint.textContent = `📅 内容更新于 ${articlesData.last_updated}`;
+    }
+  } catch (e) {
+    document.getElementById('featuredContainer').innerHTML = '';
+    document.getElementById('articleContainer').innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">😔</div>
+        <p>内容加载失败，请稍后刷新</p>
+      </div>`;
+    console.error('loadArticles error:', e);
+  }
+}
+
+// ── 渲染今日推荐 ──────────────────────────────────────
+function renderFeatured() {
+  const container = document.getElementById('featuredContainer');
+  if (!featuredArticle) { container.innerHTML = ''; return; }
+  container.innerHTML = `
+    <div class="featured-card" onclick="showDetail(${featuredArticle.id})">
+      <div class="featured-label">⭐ 今日推荐</div>
+      <div class="featured-title">${featuredArticle.title}</div>
+      <div class="featured-excerpt">${featuredArticle.excerpt}</div>
+      <div class="featured-footer">
+        <span>👤 ${featuredArticle.author}</span>
+        <span>阅读全文 →</span>
+      </div>
+    </div>`;
+}
+
+// ── 渲染文章列表 ──────────────────────────────────────
+function renderArticles(cat) {
+  const container = document.getElementById('articleContainer');
+  let filtered = cat === 'all' ? allArticles : allArticles.filter(a => a.cat === cat);
+  // 排除已经在今日推荐里展示的
+  if (featuredArticle) filtered = filtered.filter(a => a.id !== featuredArticle.id);
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><div class="emoji">📭</div><p>暂无该分类文章</p></div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(a => {
+    const badges = [];
+    if (a.isToday) badges.push('<span class="badge badge-today">今日</span>');
+    if (a.isFeatured) badges.push('<span class="badge badge-featured">推荐</span>');
+    const badgeHtml = badges.length ? `<span class="badge badge-today">今日</span>` : '';
+
+    return `
+    <div class="article-card" onclick="showDetail(${a.id})">
+      <div class="article-meta">
+        <span class="article-tag ${a.tagClass}">${a.tag}</span>
+        ${a.isToday ? '<span class="badge badge-today">今日</span>' : ''}
+        <span class="article-date">${a.date}</span>
+      </div>
+      <div class="article-title">${a.title}</div>
+      <div class="article-excerpt">${a.excerpt}</div>
+      <div class="article-footer">
+        <span class="article-author">👤 ${a.author}</span>
+        <span class="read-more">阅读全文 →</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── 文章详情（本地数组查找，无需网络请求）────────────
+function showDetail(id) {
+  const a = allArticles.find(article => article.id === id);
+  if (!a) return;
+  document.getElementById('articleList').style.display = 'none';
+  const detail = document.getElementById('articleDetail');
+  detail.classList.add('active');
+  detail.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-tag-row">
+        <span class="article-tag ${a.tagClass}">${a.tag}</span>
+        ${a.isToday ? '<span class="badge badge-today">今日</span>' : ''}
+      </div>
+      <div class="detail-title">${a.title}</div>
+      <div class="detail-meta">👤 ${a.author} &nbsp;|&nbsp; ${a.date}</div>
+    </div>
+    <div class="detail-body">${a.content}</div>
+    <div class="back-detail" onclick="hideDetail()">← 返回列表</div>
+  `;
+  window.scrollTo(0, 0);
+}
+
+function hideDetail() {
+  document.getElementById('articleList').style.display = 'block';
+  document.getElementById('articleDetail').classList.remove('active');
+  document.getElementById('articleDetail').innerHTML = '';
+  window.scrollTo(0, 0);
+}
+
+// ── 分类切换 ──────────────────────────────────────────
+document.querySelectorAll('.filter-tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    tag.classList.add('active');
+    currentCat = tag.dataset.cat;
+    renderArticles(currentCat);
+  });
+});
+
+// ── 初始化 ────────────────────────────────────────────
+loadArticles();
+</script>
+
+<!-- 底部导航 -->
+<div class="bottom-bar">
+  <div class="tab-item" onclick="location.href='index.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9.5L12 4l9 5.5v9.5a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      <path d="M9 21V12h6v9"/>
+    </svg>
+    <span>首页</span>
+  </div>
+  <div class="tab-item" onclick="location.href='intake.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="17" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+    </svg>
+    <span>预约</span>
+  </div>
+  <div class="tab-item" onclick="location.href='assessment.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4l3 3"/>
+    </svg>
+    <span>测评</span>
+  </div>
+  <div class="tab-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+    </svg>
+    <span>资讯</span>
+  </div>
+  <div class="tab-item" onclick="location.href='team.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    <span>我的</span>
+  </div>
+</div>
+</body>
+</html>

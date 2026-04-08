@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>咨询师团队 - 茉莉心理咨询工作室</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#7c6af7;
+    --primary-light:#a89bfa;
+    --lavender:#C4B5FD;
+    --bg:#f5f3ff;
+    --white:#ffffff;
+    --text:#1a1a2e;
+    --muted:#8b8b9e;
+    --border:#e8e4ff;
+    --green:#22c55e;
+    --green-light:#D1FAE5;
+    --success:#22c55e;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:15px;min-height:100vh;padding-bottom:80px}
+  img{max-width:100%}
+  /* 顶部 */
+  .header{background:var(--white);padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px}
+  .header img{width:42px;height:42px;border-radius:10px;object-fit:cover;flex-shrink:0}
+  .header h1{font-size:15px;font-weight:700;color:var(--primary)}
+  .header p{font-size:11px;color:var(--muted);margin-top:2px}
+  .back-btn{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--primary);cursor:pointer;margin-right:auto}
+  .back-btn:active{opacity:.7}
+  /* 页面 */
+  .page{padding:16px}
+  /* 品牌标语 */
+  .brand-banner{background:linear-gradient(135deg,#7c6af7,#a89bfa);border-radius:16px;padding:28px 20px;text-align:center;color:#fff;margin-bottom:16px}
+  .brand-banner .emoji{font-size:40px;margin-bottom:10px}
+  .brand-banner h2{font-size:20px;font-weight:700;margin-bottom:6px}
+  .brand-banner p{font-size:13px;opacity:.9;line-height:1.6}
+  /* 数据背书条 */
+  .stats-bar{background:var(--white);border-radius:16px;padding:16px;display:flex;justify-content:space-around;margin-bottom:16px;border:1px solid var(--border)}
+  .stat-item{text-align:center;flex:1}
+  .stat-num{font-size:22px;font-weight:800;color:var(--primary)}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:3px}
+  .stat-divider{width:1px;background:var(--border)}
+  /* 咨询师卡片 */
+  .counselor-card{background:var(--white);border-radius:18px;padding:24px 20px;margin-bottom:16px;border:1px solid var(--border);text-align:center}
+  .counselor-avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#7c6af7,#C4B5FD);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:36px;color:#fff;font-weight:700;box-shadow:0 4px 16px rgba(124,106,247,0.3)}
+  .counselor-name{font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px}
+  .counselor-title{font-size:13px;color:var(--primary);font-weight:600;margin-bottom:12px}
+  .counselor-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+  .tag{background:var(--bg);color:var(--primary);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;border:1px solid var(--border)}
+  .tag.green{background:var(--green-light);color:#16A34A;border-color:#BBF7D0}
+  /* 资质列表 */
+  .credentials{background:var(--white);border-radius:16px;padding:20px;margin-bottom:16px;border:1px solid var(--border)}
+  .cred-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .cred-title::before{content:'';width:4px;height:16px;background:var(--primary);border-radius:2px}
+  .cred-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f0eeff}
+  .cred-item:last-child{border-bottom:none}
+  .cred-icon{width:28px;height:28px;border-radius:50%;background:var(--green-light);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .cred-text{font-size:13px;color:var(--text);line-height:1.6}
+  .cred-text strong{color:var(--text)}
+  /* 擅长领域 */
+  .specialties{background:var(--white);border-radius:16px;padding:20px;margin-bottom:16px;border:1px solid var(--border)}
+  .spec-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .spec-title::before{content:'';width:4px;height:16px;background:var(--primary);border-radius:2px}
+  .spec-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .spec-item{background:var(--bg);border-radius:12px;padding:14px 12px;border:1px solid var(--border)}
+  .spec-icon{font-size:24px;margin-bottom:6px}
+  .spec-name{font-size:13px;font-weight:700;color:var(--text)}
+  .spec-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+  /* 咨询理念 */
+  .philosophy{background:var(--white);border-radius:16px;padding:20px;margin-bottom:16px;border:1px solid var(--border)}
+  .phil-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .phil-title::before{content:'';width:4px;height:16px;background:var(--primary);border-radius:2px}
+  .phil-quote{background:var(--bg);border-radius:12px;padding:16px;border-left:4px solid var(--primary);margin-bottom:12px}
+  .phil-quote p{font-size:13px;color:var(--text);line-height:1.8;font-style:italic}
+  .phil-name{font-size:12px;color:var(--muted);text-align:right;margin-top:8px}
+  /* CTA */
+  .cta-section{padding:8px 0 8px}
+  .btn-primary{background:var(--primary);color:#fff;border:none;border-radius:14px;padding:15px 0;font-size:16px;font-weight:700;cursor:pointer;width:100%;box-shadow:0 4px 14px rgba(124,106,247,0.35)}
+  .btn-primary:active{opacity:.85}
+  /* 隐私说明 */
+  .privacy-note{text-align:center;font-size:11px;color:var(--muted);margin-top:12px;padding:0 16px;line-height:1.6}
+  /* 底部导航 */
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);display:flex;z-index:20;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(124,106,247,0.08)}
+  .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--muted);font-size:10px;transition:all .2s;padding:4px 0;border-radius:8px}
+  .tab-item.active{color:var(--primary);font-weight:600}
+  .tab-icon{display:block;width:22px;height:22px}
+  .tab-item.active svg{transform:scale(1.15)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="back-btn" onclick="location.href='index.html'">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    返回
+  </div>
+  <img src="images/logo.jpg" loading="lazy" alt="茉莉心理">
+  <div>
+    <h1>咨询师团队</h1>
+    <p>茉莉心理咨询工作室</p>
+  </div>
+</div>
+
+<div class="page">
+  <!-- 品牌标语 -->
+  <div class="brand-banner">
+    <div class="emoji">🌸</div>
+    <h2>茉莉心理 · 专业陪伴</h2>
+    <p>每一位走进来的你，都值得被温柔以待<br>在安全的空间里，一起看见真实的自己</p>
+  </div>
+
+  <!-- 数据背书条 -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">年从业经验</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">咨询人次</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">来访者好评</div>
+    </div>
+  </div>
+
+  <!-- 主咨询师卡片 -->
+  <div class="counselor-card">
+    <div class="counselor-avatar">王</div>
+    <div class="counselor-name">王琳</div>
+    <div class="counselor-title">主创咨询师 · 精神动力学派</div>
+    <div class="counselor-tags">
+      <span class="tag green">国家二级心理咨询师</span>
+      <span class="tag">婚恋家庭咨询</span>
+      <span class="tag">情绪困扰</span>
+      <span class="tag">自我成长</span>
+    </div>
+  </div>
+
+  <!-- 资质认证 -->
+  <div class="credentials">
+    <div class="cred-title">专业资质</div>
+    <div class="cred-item">
+      <div class="cred-icon">✅</div>
+      <div class="cred-text"><strong>国家二级心理咨询师</strong>（人社部认证）</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-icon">✅</div>
+      <div class="cred-text"><strong>持续接受个人体验</strong>与督导，确保专业成长</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-icon">✅</div>
+      <div class="cred-text"><strong>济南茉莉心理咨询工作室</strong>主创咨询师</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-icon">✅</div>
+      <div class="cred-text"><strong>专注婚恋家庭</strong>与成人情绪困扰，深度耕耘精神动力学派</div>
+    </div>
+  </div>
+
+  <!-- 擅长领域 -->
+  <div class="specialties">
+    <div class="spec-title">擅长领域</div>
+    <div class="spec-list">
+      <div class="spec-item">
+        <div class="spec-icon">💑</div>
+        <div class="spec-name">婚恋情感</div>
+        <div class="spec-desc">伴侣沟通、分手创伤、婚姻危机</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-icon">🌱</div>
+        <div class="spec-name">自我成长</div>
+        <div class="spec-desc">自我认知、价值感提升、人生方向</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-icon">😢</div>
+        <div class="spec-name">情绪困扰</div>
+        <div class="spec-desc">焦虑、抑郁、情绪调节</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-icon">👨‍👩‍👧</div>
+        <div class="spec-name">家庭关系</div>
+        <div class="spec-desc">原生家庭、亲子关系、边界建立</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 咨询理念 -->
+  <div class="philosophy">
+    <div class="phil-title">咨询理念</div>
+    <div class="phil-quote">
+      <p>"我相信，每个人都有自我修复的内在力量。咨询不是给答案，而是陪你一起找到属于你的答案。在这里，你可以完全真实地做自己。"</p>
+      <div class="phil-name">—— 王琳</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="flex:1;min-width:120px;background:var(--bg);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--border)">
+        <div style="font-size:20px;margin-bottom:4px;">🔒</div>
+        <div style="font-size:12px;color:var(--text);font-weight:600;">严格保密</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">咨询内容仅你我知晓</div>
+      </div>
+      <div style="flex:1;min-width:120px;background:var(--bg);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--border)">
+        <div style="font-size:20px;margin-bottom:4px;">🤝</div>
+        <div style="font-size:12px;color:var(--text);font-weight:600;">平等尊重</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">非评判，真诚陪伴</div>
+      </div>
+      <div style="flex:1;min-width:120px;background:var(--bg);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--border)">
+        <div style="font-size:20px;margin-bottom:4px;">📹</div>
+        <div style="font-size:12px;color:var(--text);font-weight:600;">线上咨询</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">腾讯会议，专业稳定</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <button class="btn-primary" onclick="location.href='intake-new.html'">立即预约咨询</button>
+    <div class="privacy-note">🔒 您的信息将严格保密，仅用于预约咨询使用</div>
+  </div>
+</div>
+
+<!-- 底部导航 -->
+<div class="bottom-bar">
+  <div class="tab-item" onclick="location.href='index.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    首页
+  </div>
+  <div class="tab-item active">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    咨询师
+  </div>
+  <div class="tab-item" onclick="location.href='intake-new.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    预约
+  </div>
+  <div class="tab-item" onclick="location.href='privacy.html'">
+    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    关于
+  </div>
+</div>
+
+</body>
+</html>

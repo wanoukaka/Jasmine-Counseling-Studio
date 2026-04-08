@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/intake", "dest": "/intake.html" },
+    { "src": "/intake-new", "dest": "/intake-new.html" },
+    { "src": "/assessment", "dest": "/assessment.html" },
+    { "src": "/assessment-new", "dest": "/assessment-new.html" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/articles", "dest": "/articles.html" },
+    { "src": "/team", "dest": "/team.html" },
+    { "src": "/faq", "dest": "/faq.html" }
+  ]
+}

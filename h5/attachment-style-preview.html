@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>依恋风格与亲密关系</title>
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/3.0.23/tailwind.min.js"></script>
+  <link href="https://fonts.loli.net/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans SC','Inter',sans-serif;background:#000;color:#fff;overflow:hidden}
+    .slides-container{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0a0a}
+    .slide{width:100%;height:100%;max-width:450px;max-height:800px;aspect-ratio:9/16;position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;opacity:0;transform:translateX(100%);transition:all .5s cubic-bezier(.4,0,.2,1);overflow:hidden;background:linear-gradient(180deg,#0a0a0a 0%,#000 100%)}
+    .slide.active{opacity:1;transform:translateX(0)}
+    .slide.prev{opacity:0;transform:translateX(-100%)}
+    .light-spot{position:absolute;border-radius:50%;filter:blur(100px);opacity:.25;pointer-events:none}
+    .light-spot-1{width:300px;height:300px;background:#ec4899;top:-100px;right:-100px;animation:float1 20s ease-in-out infinite}
+    .light-spot-2{width:250px;height:250px;background:#8b5cf6;bottom:-80px;left:-80px;animation:float2 25s ease-in-out infinite}
+    .light-spot-3{width:200px;height:200px;background:#06b6d4;top:50%;left:50%;transform:translate(-50%,-50%);animation:float3 18s ease-in-out infinite}
+    @keyframes float1{0%,100%{transform:translate(0,0)}25%{transform:translate(-50px,30px)}50%{transform:translate(30px,50px)}75%{transform:translate(50px,-20px)}}
+    @keyframes float2{0%,100%{transform:translate(0,0)}33%{transform:translate(40px,-40px)}66%{transform:translate(-30px,30px)}}
+    @keyframes float3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+    .slide-content{position:relative;z-index:10;text-align:center;width:100%}
+    .progress-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100}
+    .progress-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
+    .progress-dot.active{background:#fff;transform:scale(1.3)}
+    .progress-dot:hover{background:rgba(255,255,255,.6)}
+    .page-number{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);font-size:.875rem;color:rgba(255,255,255,.4);z-index:100}
+    .tag{display:inline-block;padding:4px 16px;border-radius:50px;font-size:.75rem;font-weight:700;margin-bottom:1rem}
+  </style>
+</head>
+<body>
+
+<div class="slides-container">
+
+  <!-- 第1页：封面 -->
+  <div class="slide active">
+    <div class="light-spot light-spot-1"></div>
+    <div class="light-spot light-spot-2"></div>
+    <div class="slide-content">
+      <div style="background:linear-gradient(135deg,#ec4899,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent" class="text-5xl font-black mb-4">依恋风格</div>
+      <div class="text-5xl font-black mb-8">与亲密关系</div>
+      <p class="text-gray-400 text-lg font-light">了解自己，读懂关系</p>
+      <div class="mt-12 text-gray-500 text-sm">茉莉心理咨询工作室</div>
+    </div>
+  </div>
+
+  <!-- 第2页：问题引入 -->
+  <div class="slide">
+    <div class="light-spot light-spot-2"></div>
+    <div class="light-spot light-spot-3"></div>
+    <div class="slide-content">
+      <div class="text-gray-500 text-sm mb-6">问题</div>
+      <div class="text-3xl font-bold leading-snug mb-8">明明很爱对方<br>却总感到不安？</div>
+      <p class="text-gray-400 text-base font-light">或者明明想靠近<br>却总不自觉地想逃离？</p>
+    </div>
+  </div>
+
+  <!-- 第3页：什么是依恋风格 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1"></div>
+    <div class="slide-content">
+      <div class="text-gray-500 text-sm mb-6">理解</div>
+      <div class="text-3xl font-black mb-6">依恋风格<br>是什么？</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">婴幼儿时期与主要照顾者的互动<br>形成的情感模式<br><strong class="text-white">持续影响成年后的亲密关系</strong></p>
+    </div>
+  </div>
+
+  <!-- 第4页：三种类型总览 -->
+  <div class="slide">
+    <div class="light-spot light-spot-3"></div>
+    <div class="slide-content">
+      <div class="text-gray-500 text-sm mb-6">三种类型</div>
+      <div class="space-y-4 text-left">
+        <div class="bg-white/5 rounded-2xl p-4 text-left">
+          <div class="text-pink-400 font-bold mb-1">安全型</div>
+          <div class="text-gray-400 text-sm">既能依赖，也能独立</div>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-4 text-left">
+          <div class="text-purple-400 font-bold mb-1">焦虑型</div>
+          <div class="text-gray-400 text-sm">患得患失，害怕被抛弃</div>
+        </div>
+        <div class="bg-white/5 rounded-2xl p-4 text-left">
+          <div class="text-cyan-400 font-bold mb-1">回避型</div>
+          <div class="text-gray-400 text-sm">习惯距离，不善表达</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第5页：安全型 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1" style="background:#22c55e"></div>
+    <div class="slide-content">
+      <div class="tag bg-green-900/60 text-green-400 mb-6">安全型</div>
+      <div class="text-3xl font-black mb-6">既能依赖<br>也能独立</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">自在地依赖伴侣<br>也享受独处的时光<br>关系中感到安心和信任</p>
+      <div class="mt-8 text-green-400 text-sm font-bold">✓ 人群中约 56%</div>
+    </div>
+  </div>
+
+  <!-- 第6页：焦虑型 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1" style="background:#ec4899"></div>
+    <div class="slide-content">
+      <div class="tag bg-pink-900/60 text-pink-400 mb-6">焦虑型</div>
+      <div class="text-3xl font-black mb-6">越爱<br>越不安</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">经常担心"他不够爱我"<br>容易患得患失<br>渴望高浓度的情感连接</p>
+      <div class="mt-8 text-pink-400 text-sm font-bold">≈ 20% 人群</div>
+    </div>
+  </div>
+
+  <!-- 第7页：回避型 -->
+  <div class="slide">
+    <div class="light-spot light-spot-3"></div>
+    <div class="slide-content">
+      <div class="tag bg-cyan-900/60 text-cyan-400 mb-6">回避型</div>
+      <div class="text-3xl font-black mb-6">习惯<br>保持距离</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">不善于表达情感需求<br>觉得"独立"比"依赖"更安全<br>亲密让你感到压力</p>
+      <div class="mt-8 text-cyan-400 text-sm font-bold">≈ 25% 人群</div>
+    </div>
+  </div>
+
+  <!-- 第8页：觉察自己 -->
+  <div class="slide">
+    <div class="light-spot light-spot-2"></div>
+    <div class="light-spot light-spot-3"></div>
+    <div class="slide-content">
+      <div class="text-3xl font-black mb-8">了解自己<br>是改变的开始</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">你的依恋风格<br>不是你的"缺陷"<br>而是<strong class="text-white">理解自己的钥匙</strong></p>
+    </div>
+  </div>
+
+  <!-- 第9页：如何改善 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1"></div>
+    <div class="slide-content">
+      <div class="text-gray-500 text-sm mb-6">行动</div>
+      <div class="text-3xl font-black mb-8">与不同类型<br>如何相处？</div>
+      <div class="space-y-3 text-left">
+        <div class="bg-white/5 rounded-xl p-3 text-sm">
+          <span class="text-pink-400 font-bold">焦虑型</span>
+          <span class="text-gray-400 ml-2">→ 学会自我安抚，降低过度依赖</span>
+        </div>
+        <div class="bg-white/5 rounded-xl p-3 text-sm">
+          <span class="text-cyan-400 font-bold">回避型</span>
+          <span class="text-gray-400 ml-2">→ 尝试适度敞开，信任对方</span>
+        </div>
+        <div class="bg-white/5 rounded-xl p-3 text-sm">
+          <span class="text-green-400 font-bold">安全型</span>
+          <span class="text-gray-400 ml-2">→ 发挥优势，成为关系的锚点</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第10页：金句 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1"></div>
+    <div class="light-spot light-spot-2"></div>
+    <div class="slide-content">
+      <span class="text-7xl text-gray-700 block mb-2">"</span>
+      <p class="text-2xl font-bold leading-snug mb-6">理解自己的依恋风格<br>是打破关系困境的第一步</p>
+      <span class="text-gray-500 text-sm">— 茉莉心理</span>
+    </div>
+  </div>
+
+  <!-- 第11页：结语 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1"></div>
+    <div class="light-spot light-spot-2"></div>
+    <div class="light-spot light-spot-3"></div>
+    <div class="slide-content">
+      <div class="text-3xl font-black mb-6">每一段关系<br>都是认识自己的镜子</div>
+      <p class="text-gray-400 text-base font-light leading-relaxed">不需要独自面对<br>专业的支持在这里</p>
+    </div>
+  </div>
+
+  <!-- 第12页：预约 -->
+  <div class="slide">
+    <div class="light-spot light-spot-1"></div>
+    <div class="light-spot light-spot-2"></div>
+    <div class="slide-content">
+      <div class="text-gray-500 text-sm mb-6">开启改变</div>
+      <div class="text-3xl font-black mb-8">预约咨询</div>
+      <p class="text-gray-400 text-base font-light mb-8">国家二级心理咨询师<br>专注婚恋情感 · 情绪困扰</p>
+      <div class="inline-block bg-white text-black font-bold px-8 py-3 rounded-full">立即预约 →</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="page-number" id="pageNumber">1 / 12</div>
+
+<script>
+const slides=document.querySelectorAll('.slide'),progressBar=document.getElementById('progressBar'),pageNumber=document.getElementById('pageNumber');
+let current=0;
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='progress-dot'+(i===0?' active':'');d.addEventListener('click',()=>go(i));progressBar.appendChild(d)});
+function go(n){slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i===n)s.classList.add('active');else if(i<n)s.classList.add('prev')});document.querySelectorAll('.progress-dot').forEach((d,i)=>d.classList.toggle('active',i===n));pageNumber.textContent=(n+1)+' / '+slides.length;current=n}
+function nxt(){if(current<slides.length-1)go(current+1)}
+function prv(){if(current>0)go(current-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')nxt();else if(e.key==='ArrowLeft')prv()});
+let sx=0;document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{const ex=e.changedTouches[0].clientX;const d=sx-ex;if(Math.abs(d)>50){d>0?nxt():prv()}},{passive:true});
+</script>
+</body>
+</html>

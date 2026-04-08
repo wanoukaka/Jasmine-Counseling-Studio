@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>依恋风格与亲密关系</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans SC',sans-serif;background:#111;color:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .slides{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
+    .slide{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .8s ease}
+    .slide.active{opacity:1}
+    .slide img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter: brightness(.35)}
+    .content{position:relative;z-index:2;text-align:center;max-width:90%;padding:0 24px}
+    .page-num{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);z-index:100}
+    .dots{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:100}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s;padding:10px;margin:-6px;box-sizing:content-box}
+    .dot.active{background:#fff;transform:scale(1.4)}
+    /* Instagram 字体大小 */
+    .title-xl{font-size:clamp(28px,7vw,52px);font-weight:900;line-height:1.15;letter-spacing:-1px}
+    .title-lg{font-size:clamp(22px,5.5vw,40px);font-weight:800;line-height:1.2}
+    .title-md{font-size:clamp(18px,4.5vw,32px);font-weight:700;line-height:1.3}
+    .body-text{font-size:clamp(13px,3.2vw,20px);font-weight:300;line-height:1.7;color:rgba(255,255,255,.75)}
+    .caption{font-size:clamp(10px,2.5vw,14px);font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+    .divider{width:32px;height:2px;background:rgba(255,255,255,.4);margin:16px auto}
+    /* 标签 */
+    .badge{display:inline-block;padding:5px 14px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px}
+    .badge-safe{background:rgba(34,197,94,.2);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
+    .badge-anx{background:rgba(236,72,153,.2);color:#f472b6;border:1px solid rgba(236,72,153,.4)}
+    .badge-avoid{background:rgba(56,189,248,.2);color:#7dd3fc;border:1px solid rgba(56,189,248,.4)}
+    /* 卡片 */
+    .type-card{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:clamp(14px,3.5vw,22px);text-align:left;margin-bottom:12px}
+    .type-card-title{font-size:clamp(14px,3.5vw,20px);font-weight:700;margin-bottom:4px}
+    .type-card-sub{font-size:clamp(11px,2.8vw,15px);color:rgba(255,255,255,.5);font-weight:300}
+    /* 进度条 */
+    .progress{position:fixed;top:0;left:0;height:2px;background:rgba(255,255,255,.6);transition:width .4s ease;z-index:100}
+  </style>
+</head>
+<body>
+
+<div class="slides" id="slides">
+
+  <!-- 0: 封面 -->
+  <div class="slide active">
+    <img class="bg" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p class="caption" style="margin-bottom:20px">心理咨询</p>
+      <div class="title-xl" style="margin-bottom:16px">依恋风格</div>
+      <div class="title-xl" style="margin-bottom:24px;color:rgba(255,255,255,.85)">与亲密关系</div>
+      <div class="divider"></div>
+      <p class="body-text" style="margin-bottom:28px">了解自己 · 读懂关系 · 学会爱</p>
+      <p class="caption">茉莉心理工作室</p>
+    </div>
+  </div>
+
+  <!-- 1: 什么是依恋风格 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p class="caption" style="margin-bottom:20px">理解</p>
+      <div class="title-lg" style="margin-bottom:20px">依恋风格</div>
+      <div class="title-lg" style="margin-bottom:24px;color:rgba(255,255,255,.85)">是什么？</div>
+      <div class="divider"></div>
+      <p class="body-text" style="max-width:320px;margin:0 auto">婴幼儿时期与主要照顾者的互动<br>形成的情感模式<br><strong style="color:#fff;font-weight:700">持续影响成年后的亲密关系</strong></p>
+    </div>
+  </div>
+
+  <!-- 2: 三种类型 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p class="caption" style="margin-bottom:20px">总览</p>
+      <div class="title-md" style="margin-bottom:24px">三种依恋风格</div>
+      <div class="type-card" style="border-left:3px solid #4ade80">
+        <div class="type-card-title" style="color:#4ade80">安全型</div>
+        <div class="type-card-sub">既能依赖，也能独立</div>
+      </div>
+      <div class="type-card" style="border-left:3px solid #f472b6">
+        <div class="type-card-title" style="color:#f472b6">焦虑型</div>
+        <div class="type-card-sub">患得患失，害怕被抛弃</div>
+      </div>
+      <div class="type-card" style="border-left:3px solid #7dd3fc">
+        <div class="type-card-title" style="color:#7dd3fc">回避型</div>
+        <div class="type-card-sub">习惯距离，不善表达</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: 安全型 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <div class="badge badge-safe" style="margin-bottom:16px">安全型</div>
+      <div class="title-lg" style="margin-bottom:20px">既能依赖<br>也能独立</div>
+      <div class="divider"></div>
+      <p class="body-text" style="max-width:300px;margin:0 auto 20px">自在地依赖伴侣<br>也享受独处的时光<br>关系中感到安心和信任</p>
+      <p class="caption" style="color:#4ade80">人群占比约 56%</p>
+    </div>
+  </div>
+
+  <!-- 4: 焦虑型 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <div class="badge badge-anx" style="margin-bottom:16px">焦虑型</div>
+      <div class="title-lg" style="margin-bottom:20px">越爱<br>越不安</div>
+      <div class="divider"></div>
+      <p class="body-text" style="max-width:300px;margin:0 auto 20px">经常担心"他不够爱我"<br>容易患得患失<br>渴望高浓度的情感连接</p>
+      <p class="caption" style="color:#f472b6">人群占比约 20%</p>
+    </div>
+  </div>
+
+  <!-- 5: 回避型 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <div class="badge badge-avoid" style="margin-bottom:16px">回避型</div>
+      <div class="title-lg" style="margin-bottom:20px">保持距离<br>才觉得安全</div>
+      <div class="divider"></div>
+      <p class="body-text" style="max-width:300px;margin:0 auto 20px">不善于表达情感需求<br>觉得"独立"比"依赖"更安全<br>亲密有时让你感到压力</p>
+      <p class="caption" style="color:#7dd3fc">人群占比约 25%</p>
+    </div>
+  </div>
+
+  <!-- 6: 如何相处 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p class="caption" style="margin-bottom:20px">行动</p>
+      <div class="title-md" style="margin-bottom:20px">与不同类型<br>如何相处？</div>
+      <div class="type-card" style="border-left:3px solid #f472b6">
+        <div class="type-card-title" style="color:#f472b6">焦虑型</div>
+        <div class="type-card-sub">学会自我安抚，降低过度依赖</div>
+      </div>
+      <div class="type-card" style="border-left:3px solid #7dd3fc">
+        <div class="type-card-title" style="color:#7dd3fc">回避型</div>
+        <div class="type-card-sub">尝试适度敞开，学习信任对方</div>
+      </div>
+      <div class="type-card" style="border-left:3px solid #4ade80">
+        <div class="type-card-title" style="color:#4ade80">安全型</div>
+        <div class="type-card-sub">发挥优势，成为关系的锚点</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: 金句 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p style="font-size:64px;line-height:1;color:rgba(255,255,255,.2);margin-bottom:8px">"</p>
+      <div class="title-md" style="max-width:340px;margin:0 auto 24px">理解自己的依恋风格<br>是打破关系困境的<br>第一步</div>
+      <p class="caption">茉莉心理</p>
+    </div>
+  </div>
+
+  <!-- 8: 结语 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <div class="title-md" style="max-width:340px;margin:0 auto 20px">每一段关系<br>都是认识自己的镜子</div>
+      <div class="divider"></div>
+      <p class="body-text">不需要独自面对<br>专业的支持在这里</p>
+    </div>
+  </div>
+
+  <!-- 9: 预约 -->
+  <div class="slide">
+    <img class="bg" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1080?w=1080&q=80" alt="">q=80" alt="" loading="lazy">
+    <div class="content">
+      <p class="caption" style="margin-bottom:18px">开启改变</p>
+      <div class="title-lg" style="margin-bottom:16px">预约咨询</div>
+      <div class="divider"></div>
+      <p class="body-text" style="margin-bottom:28px">国家二级心理咨询师<br>专注婚恋情感 · 情绪困扰</p>
+      <a href="intake.html" style="display:inline-block;border:1.5px solid rgba(255,255,255,.5);border-radius:50px;padding:12px 32px;font-size:14px;font-weight:600;letter-spacing:1px;color:#fff;text-decoration:none">预约咨询 →</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="dots" id="dots"></div>
+<div class="page-num" id="pageNum">01 / 10</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const dotsEl=document.getElementById('dots');
+const progressEl=document.getElementById('progress');
+const pageNumEl=document.getElementById('pageNum');
+const total=slides.length;
+let cur=0;
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>go(i);
+  dotsEl.appendChild(d);
+});
+
+function go(n){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  progressEl.style.width=((n+1)/total*100)+'%';
+  pageNumEl.textContent=String(n+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+  cur=n;
+}
+
+function nxt(){if(cur<total-1)go(cur+1)}
+function prv(){if(cur>0)go(cur-1)}
+
+document.onkeydown=e=>{
+  if(e.key==='ArrowRight'||e.key===' ')nxt();
+  else if(e.key==='ArrowLeft')prv();
+};
+
+let sx=0;
+// 全屏触摸翻页（左右区域）
+document.ontouchstart=e=>{sx=e.touches[0].clientX};
+document.ontouchend=e=>{
+  const dx=sx-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>40){dx>0?nxt():prv()}
+};
+
+// 预加载图片
+slides.forEach(s=>{
+  const img=new Image();
+  img.src=s.querySelector('img').src;
+});
+
+go(0);
+</script>
+</body>
+</html>

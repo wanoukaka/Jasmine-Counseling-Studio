@@ -547,27 +547,76 @@ const SCALES = {
   },
 
   mbti: {
-    name: 'MBTI 迈尔斯类型指标', total: 28,
+    name: 'MBTI 迈尔斯类型指标', total: 32,
     options: ['完全不像我','不太像我','有点像我','比较像我','完全像我'],
     questions: [
-      '我倾向从外部世界获得能量','我倾向从内在世界获得能量','我注意想法和概念','我注意实际和眼前的事',
-      '我做决定时主要依据逻辑分析','我做决定时主要依据对他人的影响','我是一个有逻辑的思考者','我是一个很体谅他人的感受者',
-      '我偏好有计划有条理的生活','我偏好灵活随性的生活方式','我更看重创造力','我更看重执行力',
-      '在社交场合我感到精力充沛','独处时我感到精力充沛','我喜欢同时处理多个任务','我喜欢一次专心做一件事',
-      '我说得多，听得少','我听得认真，说得较少','我通过讲话来理清思路','我通过思考来理清思路',
-      '我关注宏观的大局','我关注具体的细节','我做事果断快速','我做事深思熟虑',
-      '我喜欢变化和新体验','我喜欢稳定和可预测','我容易做决定','我深思熟虑后才做决定'
+      // E/I 维度 (8题)
+      '在社交场合中我感到精力充沛','独处时我反而能恢复能量','我喜欢和很多人交流','我更享受一对一的深入对话',
+      '我很容易和陌生人打开话题','我需要时间才会对人敞开心扉','我喜欢参加聚会和活动','我更喜欢安静的陪伴方式',
+      // S/N 维度 (8题)
+      '我更关注具体的事实和细节','我更容易想象未来的可能性','我信任实际的经验','我相信直觉和第六感',
+      '我喜欢按部就班完成工作','我享受突如其来的灵感','我注重此时此刻','我常常思考人生的意义和可能性',
+      // T/F 维度 (8题)
+      '我做决定时主要看是否合理','我做决定时会考虑他人的感受','我重视公平和原则','我重视和谐和关系',
+      '我习惯用逻辑分析问题','我善于感知他人的情绪','我可以直接指出别人的问题','我倾向于委婉地表达不同意见',
+      // J/P 维度 (8题)
+      '我喜欢提前计划和安排','我更喜欢灵活随性','我喜欢把所有事情确定下来','我喜欢保留选项和可能性',
+      '我习惯按清单完成任务','我可以很好地应对变化','我追求有序的生活','我对突发情况也能泰然处之'
     ],
     score(answers) {
-      const pairs=[[0,1,'E','I'],[2,3,'S','N'],[4,5,'T','F'],[6,7,'T','F'],[8,9,'J','P'],[10,11,'N','S'],[12,13,'E','I'],[14,15,'P','J'],[16,17,'I','E'],[18,19,'N','T'],[20,21,'S','J'],[22,23,'J','P'],[24,25,'P','J'],[26,27,'J','P']];
-      let type='';
-      pairs.forEach(([a,b,c1,c2])=>{type+=answers[a]>answers[b]?c1:c2});
-      const types={'ISTJ':'勤奋务实型','ISFJ':'温柔守护型','INFJ':'洞察理想型','INTJ':'战略思想型','ISTP':'冷静分析型','ISFP':'温暖艺术型','INFP':'理想治愈型','INTP':'逻辑创造型','ESTP':'活力冒险型','ESFP':'热情表演型','ENFP':'热情理想型','ENTP':'创新发明型','ESTJ':'高效管理型','ESFJ':'关怀付出型','ENFJ':'领导激励型','ENTJ':'果断统帅型'};
-      const dims={'E':'外向','I':'内向','S':'实感','N':'直觉','T':'理性','F':'情感','J':'判断','P':'知觉'};
-      return { raw:type, score:type, level:(types[type]||type), levelColor:'#7c6af7', pct:80,
-        desc:'您的MBTI性格类型为 '+type+'（'+dims[type[0]]+'/'+dims[type[1]]+'/'+dims[type[2]]+'/'+dims[type[3]]+'），'+types[type]+'。了解性格类型有助于职业规划、人际沟通和自我成长。' };
+      // 4维度计分：E/I(0-7), S/N(8-15), T/F(16-23), J/P(24-31)
+      const dimSums=[0,0,0,0];
+      // E>I: 题目0,2,4,6选"更像E"计分；I>E: 题目1,3,5,7选"更像I"计分
+      // S: 题目8,10,12,14选"更像S"；N: 题目9,11,13,15选"更像N"
+      const eQuestions=[0,2,4,6], iQuestions=[1,3,5,7];
+      const sQuestions=[8,10,12,14], nQuestions=[9,11,13,15];
+      const tQuestions=[16,18,20,22], fQuestions=[17,19,21,23];
+      const jQuestions=[24,26,28,30], pQuestions=[25,27,29,31];
+
+      eQuestions.forEach(i=>dimSums[0]+=answers[i]);
+      iQuestions.forEach(i=>dimSums[0]+=(4-answers[i]));
+      sQuestions.forEach(i=>dimSums[1]+=answers[i]);
+      nQuestions.forEach(i=>dimSums[1]+=(4-answers[i]));
+      tQuestions.forEach(i=>dimSums[2]+=answers[i]);
+      fQuestions.forEach(i=>dimSums[2]+=(4-answers[i]));
+      jQuestions.forEach(i=>dimSums[3]+=answers[i]);
+      pQuestions.forEach(i=>dimSums[3]+=(4-answers[i]));
+
+      const type=(dimSums[0]>16?'E':'I')+(dimSums[1]>16?'S':'N')+(dimSums[2]>16?'T':'F')+(dimSums[3]>16?'J':'P');
+      const types={
+        'ISTJ':'【物流师】勤奋务实，责任感强，重视承诺和秩序',
+        'ISFJ':'【守卫者】温柔细腻，善于照顾他人，重视传统和稳定',
+        'INFJ':'【提倡者】理想主义，有洞察力，追求意义和成长',
+        'INTJ':'【建筑师】战略思维，独立自主，追求知识和掌控',
+        'ISTP':'【鉴赏家】灵活务实，动手能力强，善于分析问题',
+        'ISFP':'【探险家】敏感温柔，艺术气质，享受当下的美好',
+        'INFP':'【调停者】理想主义，有同理心，重视价值观和意义',
+        'INTP':'【逻辑学家】好奇心强，善于思考，追求理性和精确',
+        'ESTP':'【企业家】活力充沛，适应力强，喜欢冒险和实践',
+        'ESFP':'【表演者】热情开朗，善于社交，享受生活的精彩',
+        'ENFP':'【竞选者】热情理想，创造力强，追求可能性和联系',
+        'ENTP':'【辩论家】聪明机敏，喜欢挑战，追求创新和刺激',
+        'ESTJ':'【总经理】高效务实，组织能力强，重视执行和秩序',
+        'ESFJ':'【执行官】热心助人，有责任感，重视和谐和关系',
+        'ENFJ':'【主人公】魅力非凡，激励他人，有领导力和同理心',
+        'ENTJ':'【指挥官】果断自信，战略思维，追求效率和成就'
+      };
+      const dims={'E':'外向型','I':'内向型','S':'实感型','N':'直觉型','T':'思考型','F':'情感型','J':'判断型','P':'知觉型'};
+      const pct=Math.round((dimSums[0]+dimSums[1]+dimSums[2]+dimSums[3])/128*100);
+      return { raw:type, score:type, level:(types[type]||type), levelColor:'#7c6af7', pct,
+        desc:'您的MBTI性格类型为 '+type+'\n'+dims[type[0]]+' | '+dims[type[1]]+' | '+dims[type[2]]+' | '+dims[type[3]]+'\n\n'+types[type]+'\n\n了解性格类型有助于职业规划、人际沟通和自我成长。',
+        dimScores:{外向:dimSums[0],内向:32-dimSums[0],实感:dimSums[1],直觉:32-dimSums[1],思考:dimSums[2],情感:32-dimSums[2],判断:dimSums[3],知觉:32-dimSums[3]} };
     },
-    factorData() { return null; }
+    factorData() {
+      const r=this.score(window.mbtiAnswers||[]);
+      if(!r.dimScores)return null;
+      return [
+        {name:'E/I维度',E:r.dimScores.外向,I:r.dimScores.内向,color:'#7c6af7'},
+        {name:'S/N维度',S:r.dimScores.实感,N:r.dimScores.直觉,color:'#22c55e'},
+        {name:'T/F维度',T:r.dimScores.思考,F:r.dimScores.情感,color:'#f59e0b'},
+        {name:'J/P维度',J:r.dimScores.判断,P:r.dimScores.知觉,color:'#ec4899'}
+      ];
+    }
   },
 
   mmpi: {

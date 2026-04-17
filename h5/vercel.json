@@ -14,7 +14,8 @@
     { "src": "/assessment-new", "dest": "/assessment-new.html" },
     { "src": "/ai-eval", "dest": "/ai-eval.html" },
     { "src": "/privacy", "dest": "/privacy.html" },
-    { "src": "/articles", "dest": "/articles.html" },
+    { "src": "/articles", "dest": "/articles_v2.html" },
+    { "src": "/articles.html", "dest": "/articles_v2.html" },
     { "src": "/team", "dest": "/team.html" },
     { "src": "/faq", "dest": "/faq.html" }
   ]

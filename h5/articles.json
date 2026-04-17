@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-04-16",
-  "daily_featured_id": 31,
+  "last_updated": "2026-04-17",
+  "daily_featured_id": 34,
   "articles": [
     {
       "id": 1,
@@ -397,6 +397,42 @@
       "isFeatured": false,
       "excerpt": "自我觉察是情绪管理的基础。坚持写情绪日记，绘制你的情绪地图。",
       "content": "<p>想要管理情绪，首先需要<strong>觉察情绪</strong>。而觉察情绪最好的工具之一，就是情绪日记。</p><div class=\"highlight\">写情绪日记不是记流水账，而是深入探索情绪的来源和意义。</div><p>情绪日记模板：</p><p>1. <strong>发生了什么？</strong>（情境）</p><p>2. <strong>我感受到了什么情绪？</strong>（情绪命名）</p><p>3. <strong>这个情绪有多强烈？</strong>（1-10分）</p><p>4. <strong>这个情绪想告诉我什么？</strong>（情绪信息）</p><p>5. <strong>我需要做什么？</strong>（行动）</p><p>坚持写2-4周，你会发现自己情绪的模式和触发点，从而<strong>真正成为情绪的主人</strong>。</p><p><strong>金句：</strong>当你开始觉察，成长就已经开始了。</p>"
+    },
+    {
+      "id": 34,
+      "cat": "love",
+      "tag": "婚恋心理",
+      "tagClass": "tag-love",
+      "title": "为什么有些人总在关系里测试对方？",
+      "date": "2026-04-17",
+      "author": "王琳老师",
+      "isFeatured": false,
+      "excerpt": "反复确认对方会不会离开，这可能不是你不信任，而是依恋焦虑在作祟。",
+      "content": "<p>有些人谈恋爱，总喜欢测试伴侣：故意发脾气、故意不回复消息。</p><p>表面看起来是作，深层原因是<strong>依恋焦虑</strong>——内心深处的不安全感，让他们无法相信自己是值得被爱的。</p><div class=\"highlight\">每一次测试，其实都是在问：我真的可以相信你会留下来吗？</div><p>如何打破这个循环？</p><p>1. <strong>觉察</strong>——意识到自己在测试，而不是真的想要结果</p><p>2. <strong>表达真实需求</strong>——把“你居然没挽留我”换成“我很害怕你会离开”</p><p>3. <strong>建立安全感</strong>——在安全的关系中，慢慢学会信任</p><p><strong>金句：</strong>你不需要证明爱，你只需要选择相信。</p>"
+    },
+    {
+      "id": 35,
+      "cat": "emotion",
+      "tag": "情绪管理",
+      "tagClass": "tag-emotion",
+      "title": "情绪崩溃时，你需要一个心理急救包",
+      "date": "2026-04-17",
+      "author": "王琳老师",
+      "isFeatured": false,
+      "excerpt": "情绪风暴来临时，我们常常手足无措。几个简单的急救方法，帮你快速稳定。",
+      "content": "<p>当你感到情绪即将崩溃时，大脑会切换到战斗模式，理性思考几乎不可能。</p><div class=\"highlight\">情绪急救的关键不是想通，而是先让身体平静下来。</div><p>几个有效的急救方法：</p><p>1. <strong>54321 grounding</strong>——说出5样看到的、4样触摸到的、3样听到的</p><p>2. <strong>冷敷</strong>——用冷水洗脸，激活身体的休息反应</p><p>3. <strong>慢呼吸</strong>——吸气4秒，屏住2秒，呼气6秒，重复3次</p><p>4. <strong>离开现场</strong>——给自己一个物理空间，等情绪峰值过去</p><p><strong>金句：</strong>崩溃不是软弱，是在提醒你需要照顾自己了。</p>"
+    },
+    {
+      "id": 36,
+      "cat": "growth",
+      "tag": "自我成长",
+      "tagClass": "tag-growth",
+      "title": "为什么你总觉得自己不够好？",
+      "date": "2026-04-17",
+      "author": "王琳老师",
+      "isFeatured": false,
+      "excerpt": "无论多成功都无法满足的内在声音，可能是内在批判者在作祟。",
+      "content": "<p>你有没有这样的体验：明明已经很不错了，但内心总有一个声音在说“你还不够好”？</p><p>心理学上这叫<strong>内在批判者</strong>（Inner Critic）——一个持续评判、批评、否定自己的声音。</p><div class=\"highlight\">内在批判者不是你自己，它是你早年环境中形成的保护机制。</div><p>它会放大错误、忽视成就，让你永远觉得自己不够。</p><p>如何应对？</p><p>1. <strong>命名它</strong>——给这个声音取个名字，比如“小评判”</p><p>2. <strong>拉开距离</strong>——当它出现时，说“谢谢你的提醒，但我不需要你”</p><p>3. <strong>补充证据</strong>——刻意列出自己的成就，打破它的垄断</p><p><strong>金句：</strong>你已经足够好了，不是因为你做了什么，而是因为你是你。</p>"
     }
   ]
 }

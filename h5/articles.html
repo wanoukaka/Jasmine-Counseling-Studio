@@ -153,11 +153,27 @@ function showSkeleton() {
  ).join('');
 }
 
-// ── 获取文章数据（直接读取内嵌数据，file:// 也正常工作）──
+// ── 获取文章数据（优先从 articles.json 读取，file:// 也正常工作）──
 async function loadArticles() {
  showSkeleton();
  try {
- articlesData = ARTICLES_JSON;
+    // 优先从 articles.json 读取最新数据
+    let loaded = false;
+    try {
+      const res = await fetch('articles.json?_=' + Date.now(), { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.articles && json.articles.length > 0) {
+          articlesData = json;
+          loaded = true;
+        }
+      }
+    } catch (e) { /* fallback to embedded data */ }
+    
+    // Fallback: 使用内置数据
+    if (!loaded) {
+      articlesData = ARTICLES_JSON;
+    }
  const today = new Date().toISOString().slice(0, 10);
  allArticles = (articlesData.articles || []).map(a => ({
  ...a,
